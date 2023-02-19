@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "407272984814",
+    "project_id": "ecitizen-db684",
+    "storage_bucket": "ecitizen-db684.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407272984814:android:b666ac4511ac8a0b79e3ff",
+        "android_client_info": {
+          "package_name": "com.example.ecitizen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407272984814-6sqq464k4imgj1lhpt4fftgdspgnhfms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecitizen",
+            "certificate_hash": "fbcd2732b59f236c86abface57db0dd028c780af"
+          }
+        },
+        {
+          "client_id": "407272984814-ihopav9pm43u89ha5oo25g6deotbfbls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDADxrAxytNTz6G-70u-Yec5I2SqjMbhkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407272984814-ihopav9pm43u89ha5oo25g6deotbfbls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
