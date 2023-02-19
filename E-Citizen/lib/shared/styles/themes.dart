@@ -4,7 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 
 import 'color.dart';
 
-
 ThemeData lightTheme() {
   return ThemeData(
     // control scaffold
@@ -13,13 +12,13 @@ ThemeData lightTheme() {
     // control appBar
     appBarTheme: const AppBarTheme(
       // control status bar
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-      ),
+      // systemOverlayStyle: SystemUiOverlayStyle(
+      //   statusBarColor: Colors.black,
+      //   statusBarIconBrightness: Brightness.light,
+      // ),
 
-      elevation: 0,
-      backgroundColor: Colors.white,
+      elevation: 5,
+      backgroundColor: myYellow,
       iconTheme: IconThemeData(
         color: Colors.black,
       ),
@@ -39,17 +38,16 @@ ThemeData lightTheme() {
     ),
 
     // control body
-    primaryColor: Colors.red,
-    primarySwatch: lightThemeColor,
+    primaryColor: Colors.black,
+    primarySwatch: myBlueMaterial,
 
     // control text theme
     textTheme: const TextTheme(
         bodyLarge: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          color: Colors.black,
-        )
-    ),
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+    )),
 
     // control bottom navbar
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -102,11 +100,10 @@ ThemeData darkTheme() {
     // control text theme
     textTheme: const TextTheme(
         bodyLarge: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        )
-    ),
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+    )),
 
     // control bottom navbar
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -118,5 +115,3 @@ ThemeData darkTheme() {
     ),
   );
 }
-
-

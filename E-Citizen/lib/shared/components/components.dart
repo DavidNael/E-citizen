@@ -1,5 +1,5 @@
+import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
-
 
 // Custom TextFormField
 Widget myTextFormField({
@@ -32,6 +32,22 @@ Widget myTextFormField({
   );
 }
 
+//Custom Elevated Button
+Widget myElevatedButton({
+  required String text,
+  Color buttonColor = myYellow,
+  Color textColor = Colors.white,
+}) {
+  return ElevatedButton(
+    onPressed: () {},
+    style: TextButton.styleFrom(backgroundColor: buttonColor),
+    child: Text(
+      text,
+      style: TextStyle(color: textColor),
+    ),
+  );
+}
+
 // Custom button
 Widget myButton({
   double width = double.infinity,
@@ -61,43 +77,42 @@ Widget myButton({
       ),
     );
 
-
 // Search bar
 Widget searchBar() => Padding(
-  padding: const EdgeInsets.all(5.0),
-  child: SizedBox(
-    height: 48,
-    width: double.infinity,
-    child: TextFormField(
-      decoration: InputDecoration(
-        hintStyle: TextStyle(
-          fontSize: 13,
-          color: Colors.grey[600],
-        ),
-        filled: true,
-        focusColor: Colors.blue,
-        fillColor: Colors.white,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
-          borderSide: const BorderSide(
-            width: 3.0,
-            color: Colors.blue,
+      padding: const EdgeInsets.all(5.0),
+      child: SizedBox(
+        height: 48,
+        width: double.infinity,
+        child: TextFormField(
+          decoration: InputDecoration(
+            hintStyle: TextStyle(
+              fontSize: 13,
+              color: Colors.grey[600],
+            ),
+            filled: true,
+            focusColor: Colors.blue,
+            fillColor: Colors.white,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+              borderSide: const BorderSide(
+                width: 3.0,
+                color: Colors.blue,
+              ),
+            ),
+            prefixIcon: IconButton(
+              icon: Icon(
+                Icons.search,
+                size: 20,
+                color: Colors.grey[600],
+              ),
+              onPressed: () {},
+            ),
+            hintText: "Search",
           ),
+          onFieldSubmitted: (value) {},
         ),
-        prefixIcon: IconButton(
-          icon: Icon(
-            Icons.search,
-            size: 20,
-            color: Colors.grey[600],
-          ),
-          onPressed: () {},
-        ),
-        hintText: "Search",
       ),
-      onFieldSubmitted: (value) {},
-    ),
-  ),
-);
+    );
 
 Widget verticalSeparator({double value = 10}) => SizedBox(height: value);
 
@@ -105,10 +120,10 @@ Widget horizontalSeparator({double value = 10}) => SizedBox(width: value);
 
 // Custom icon
 Widget myIcon(
-    {Color iconColor = Colors.white,
-      Color? backgroundColor,
-      required Icon icon,
-      Function()? onPressed}) =>
+        {Color iconColor = Colors.white,
+        Color? backgroundColor,
+        required Icon icon,
+        Function()? onPressed}) =>
     CircleAvatar(
       backgroundColor: backgroundColor ?? Colors.black.withOpacity(0.6),
       child: IconButton(
@@ -169,20 +184,30 @@ Widget navButton({
 Widget navigateTo({
   required BuildContext context,
   required Widget destination,
-}) => IconButton(
-    icon: const Icon(
-      Icons.amp_stories_rounded,
-    ),
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => destination,
+}) =>
+    IconButton(
+        icon: const Icon(
+          Icons.amp_stories_rounded,
         ),
-      );
-    });
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => destination,
+            ),
+          );
+        });
 
 BoxDecoration decorateContainer() => BoxDecoration(
-  color: Colors.blue,
-  borderRadius: BorderRadius.circular(25),
-);
+      color: Colors.blue,
+      borderRadius: BorderRadius.circular(25),
+    );
+//! Password Validator
+bool validatePassword(String value) {
+  RegExp regExp = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+  if (regExp.hasMatch(value)) {
+    return true;
+  } else {
+    return false;
+  }
+}
