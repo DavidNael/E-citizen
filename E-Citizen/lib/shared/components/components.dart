@@ -12,23 +12,32 @@ Widget myTextFormField({
   required Function(String?) validator,
   Function(String value)? myOnFieldSubmitted,
   Function(String value)? myOnChanged,
+  VoidCallback? myOnTap,
   double borderRadius = 25.0,
+  double width = double.infinity,
+  double height = 75,
 }) {
-  return TextFormField(
-    controller: textController,
-    keyboardType: keyboardType,
-    obscureText: isPassword,
-    validator: (String? value) => validator(value),
-    decoration: InputDecoration(
-      prefixIcon: prefixIcon,
-      labelText: label,
-      suffixIcon: suffixIcon,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
+  return Container(
+    padding: const EdgeInsets.only(bottom: 20),
+    height: height,
+    width: width,
+    child: TextFormField(
+      controller: textController,
+      keyboardType: keyboardType,
+      obscureText: isPassword,
+      validator: (String? value) => validator(value),
+      decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        labelText: label,
+        suffixIcon: suffixIcon,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
       ),
+      onFieldSubmitted: myOnFieldSubmitted,
+      onChanged: myOnChanged,
+      onTap: myOnTap,
     ),
-    onFieldSubmitted: myOnFieldSubmitted,
-    onChanged: myOnChanged,
   );
 }
 
@@ -41,7 +50,9 @@ Widget myElevatedButton({
 }) {
   return ElevatedButton(
     onPressed: onPressed,
-    style: TextButton.styleFrom(backgroundColor: buttonColor),
+    style: TextButton.styleFrom(
+      backgroundColor: buttonColor,
+    ),
     child: Text(
       text,
       style: TextStyle(color: textColor),
@@ -182,22 +193,12 @@ Widget navButton({
           );
         });
 
-Widget navigateTo({
-  required BuildContext context,
-  required Widget destination,
-}) =>
-    IconButton(
-        icon: const Icon(
-          Icons.amp_stories_rounded,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => destination,
-            ),
-          );
-        });
+void navigateTo({required BuildContext context, required Widget destination}) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => destination),
+  );
+}
 
 BoxDecoration decorateContainer() => BoxDecoration(
       color: Colors.blue,
@@ -211,4 +212,25 @@ bool passwordValidator(String value) {
   } else {
     return false;
   }
+}
+
+Widget buildRow({
+  required List<Widget> widgets,
+  double space = 10,
+}) {
+  return Row(
+    children: [
+      ListView.separated(
+        itemBuilder: (context, index) {
+          return widgets[index];
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(
+            width: space,
+          );
+        },
+        itemCount: widgets.length,
+      )
+    ],
+  );
 }

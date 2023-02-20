@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecitizen/shared/components/components.dart';
 import 'package:ecitizen/shared/cubit/states.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ECitizenCubit extends Cubit<ECitizenStates> {
@@ -33,4 +35,11 @@ class ECitizenCubit extends Cubit<ECitizenStates> {
       return null;
     }
   }
+
+  Future<void> login(String NID, String password) async {
+
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: NID, password: password);
+  }
+
 }
