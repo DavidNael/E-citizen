@@ -37,9 +37,10 @@ Widget myElevatedButton({
   required String text,
   Color buttonColor = myYellow,
   Color textColor = Colors.white,
+  required VoidCallback onPressed,
 }) {
   return ElevatedButton(
-    onPressed: () {},
+    onPressed: onPressed,
     style: TextButton.styleFrom(backgroundColor: buttonColor),
     child: Text(
       text,
@@ -203,7 +204,7 @@ BoxDecoration decorateContainer() => BoxDecoration(
       borderRadius: BorderRadius.circular(25),
     );
 //! Password Validator
-bool validatePassword(String value) {
+bool passwordValidator(String value) {
   RegExp regExp = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
   if (regExp.hasMatch(value)) {
     return true;

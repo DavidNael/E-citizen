@@ -1,6 +1,9 @@
 import 'package:ecitizen/shared/components/components.dart';
+import 'package:ecitizen/shared/cubit/cubit.dart';
+import 'package:ecitizen/shared/cubit/states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../shared/styles/color.dart';
@@ -9,19 +12,18 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController _NIDController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: color1,
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Form(
+              key: formKey,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -46,10 +48,7 @@ class LoginScreen extends StatelessWidget {
                         label: "National ID",
                         borderRadius: 10,
                         validator: (nid) {
-                          if (nid.toString().length != 14) {
-                            return "National ID must be 14 digits.";
-                          }
-                          return null;
+                          cubit.validateNID(nid.toString());
                         },
                       ),
                     ),
@@ -66,14 +65,17 @@ class LoginScreen extends StatelessWidget {
                       label: "Password",
                       borderRadius: 10,
                       validator: (password) {
-                        if (!validatePassword(password.toString())) {
-                          return "Weak Password. password must contain numerical digit and at least 8 characters long.";
-                        }
-                        return null;
+                        cubit.validatePassword(password.toString());
                       },
                     ),
-                    myElevatedButton(
-                      text: "Login",
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: myElevatedButton(
+                        text: "Login",
+                        onPressed: () {
+                          formKey.currentState?.validate();
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -83,5 +85,7 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+
+    ;
   }
 }

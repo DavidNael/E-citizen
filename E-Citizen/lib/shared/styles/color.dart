@@ -8,7 +8,7 @@ const String dimDark = '243447';
 const Color color1 = Colors.white;
 //Choice 1
 // const Color myYellow = Color.fromARGB(255, 62, 151, 199);
-/// const Color myBlueColor = Color(0xFF0046A7);
+ const Color myBlueColor = Color(0xFF0046A7);
 
 const Color myYellow = Color(0xFF0046A7);
 const Color myLightBlue2 = Color(0xFFBDCDD6);

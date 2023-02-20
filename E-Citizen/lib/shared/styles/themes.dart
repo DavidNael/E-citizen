@@ -12,10 +12,10 @@ ThemeData lightTheme() {
     // control appBar
     appBarTheme: const AppBarTheme(
       // control status bar
-      // systemOverlayStyle: SystemUiOverlayStyle(
-      //   statusBarColor: Colors.black,
-      //   statusBarIconBrightness: Brightness.light,
-      // ),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: myBlueColor,
+        statusBarIconBrightness: Brightness.light,
+      ),
 
       elevation: 5,
       backgroundColor: myYellow,
@@ -25,8 +25,9 @@ ThemeData lightTheme() {
 
       // control title
       titleSpacing: 20,
+      centerTitle: true,
       titleTextStyle: TextStyle(
-        color: Colors.black,
+        color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 20,
       ),
