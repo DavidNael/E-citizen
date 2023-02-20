@@ -2,7 +2,6 @@ import 'package:ecitizen/modules/login/login_screen.dart';
 import 'package:ecitizen/shared/components/components.dart';
 import 'package:ecitizen/shared/cubit/cubit.dart';
 import 'package:ecitizen/shared/cubit/states.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -12,8 +11,10 @@ import '../../shared/styles/color.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
+  double rowWidth = 15;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   //Name
   final TextEditingController _fNameController = TextEditingController();
   final TextEditingController _mNameController = TextEditingController();
@@ -75,6 +76,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ),
 
+                          /// First Name + Last Name
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -95,9 +97,11 @@ class RegisterScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
+
                               SizedBox(
-                                width: 15,
+                                width: rowWidth,
                               ),
+
                               //! Last Name Field
                               Expanded(
                                 child: myTextFormField(
@@ -118,95 +122,193 @@ class RegisterScreen extends StatelessWidget {
                             ],
                           ),
 
-                          //! Mother Name Field
-                          myTextFormField(
-                            textController: _motherNameController,
-                            keyboardType: TextInputType.name,
-                            prefixIcon: const Icon(Icons.person_2),
-                            label: "Mother Name",
-                            borderRadius: 10,
-                            validator: (nid) {
-                              if (nid.toString().isEmpty) {
-                                return "Mother Name can't be empty!";
-                              }
-                              return null;
-                            },
+                          /// Father Name + Mother Name
+                          Row(
+                            children: [
+                              //! Mother Name Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _motherNameController,
+                                  keyboardType: TextInputType.name,
+                                  prefixIcon: const Icon(Icons.person_2),
+                                  label: "Mother Name",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Mother Name can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+
+                              SizedBox(
+                                width: rowWidth,
+                              ),
+
+                              //! Father Name Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _fatherNameController,
+                                  keyboardType: TextInputType.name,
+                                  prefixIcon: const Icon(Icons.person),
+                                  label: "Father Name",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Father Name can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
 
-                          //! Father Name Field
-                          myTextFormField(
-                            textController: _fatherNameController,
-                            keyboardType: TextInputType.name,
-                            prefixIcon: const Icon(Icons.person),
-                            label: "Father Name",
-                            borderRadius: 10,
-                            validator: (nid) {
-                              if (nid.toString().isEmpty) {
-                                return "Father Name can't be empty!";
-                              }
-                              return null;
-                            },
+                          /// Birth Place + Date of Birth
+                          Row(
+                            children: [
+                              //! Birth Place Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _birthPlaceController,
+                                  keyboardType: TextInputType.text,
+                                  prefixIcon: const Icon(Icons.place),
+                                  label: "Birth Place",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Birth Place can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+
+                              SizedBox(
+                                width: rowWidth,
+                              ),
+
+                              //! Date Of Birth Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _dateOfBirthController,
+                                  keyboardType: TextInputType.datetime,
+                                  prefixIcon: const Icon(Icons.date_range),
+                                  label: "Date Of Birth",
+                                  borderRadius: 10,
+                                  myOnTap: () {
+                                    showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.parse("2030-12-30"),
+                                    ).then((value) {
+                                      if (value != null) {
+                                        _dateOfBirthController.text =
+                                            DateFormat.yMMMMd().format(value);
+                                      }
+                                    });
+                                  },
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Date Of Birth can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
 
-                          //! Birth Place Field
-                          myTextFormField(
-                            textController: _birthPlaceController,
-                            keyboardType: TextInputType.text,
-                            prefixIcon: const Icon(Icons.place),
-                            label: "Birth Place",
-                            borderRadius: 10,
-                            validator: (nid) {
-                              if (nid.toString().isEmpty) {
-                                return "Birth Place can't be empty!";
-                              }
-                              return null;
-                            },
+                          /// National ID + Phone Number
+                          Row(
+                            children: [
+                              //!National ID Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _nidController,
+                                  keyboardType: TextInputType.number,
+                                  prefixIcon: const Icon(Icons.credit_card),
+                                  label: "National ID",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "National ID can't be empty!";
+                                    } else if (nid.toString().length != 14) {
+                                      return "National ID must be 14 digits long";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+
+                              SizedBox(
+                                width: rowWidth,
+                              ),
+
+                              //! Phone Number Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _phoneController,
+                                  keyboardType: TextInputType.number,
+                                  prefixIcon: const Icon(Icons.phone),
+                                  label: "Phone",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Phone can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
 
-                          //! Date Of Birth Field
-                          myTextFormField(
-                            textController: _dateOfBirthController,
-                            keyboardType: TextInputType.datetime,
-                            prefixIcon: const Icon(Icons.date_range),
-                            label: "Date Of Birth",
-                            borderRadius: 10,
-                            myOnTap: () {
-                              showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime.parse("2030-12-30"),
-                              ).then((value) {
-                                if (value != null) {
-                                  _dateOfBirthController.text =
-                                      DateFormat.yMMMMd().format(value);
-                                }
-                              });
-                            },
-                            validator: (nid) {
-                              if (nid.toString().isEmpty) {
-                                return "Date Of Birth can't be empty!";
-                              }
-                              return null;
-                            },
+                          /// Gender + Martial Status
+                          Row(
+                            children: [
+                              //! Gender Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _genderController,
+                                  keyboardType: TextInputType.number,
+                                  prefixIcon: const Icon(Icons.transgender_sharp),
+                                  label: "Gender",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Gender can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+
+                              SizedBox(
+                                width: rowWidth,
+                              ),
+
+                              //! Martial Status Field
+                              Expanded(
+                                child: myTextFormField(
+                                  textController: _martialStatusController,
+                                  keyboardType: TextInputType.number,
+                                  prefixIcon: const Icon(Icons.family_restroom),
+                                  label: "Martial Status",
+                                  borderRadius: 10,
+                                  validator: (nid) {
+                                    if (nid.toString().isEmpty) {
+                                      return "Martial Status can't be empty!";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
 
-                          //!National ID Field
-                          myTextFormField(
-                            textController: _nidController,
-                            keyboardType: TextInputType.number,
-                            prefixIcon: const Icon(Icons.credit_card),
-                            label: "National ID",
-                            borderRadius: 10,
-                            validator: (nid) {
-                              if (nid.toString().isEmpty) {
-                                return "National ID can't be empty!";
-                              } else if (nid.toString().length != 14) {
-                                return "National ID must be 14 digits long";
-                              }
-                              return null;
-                            },
-                          ),
 
                           //! Address Field
                           myTextFormField(
@@ -223,26 +325,7 @@ class RegisterScreen extends StatelessWidget {
                             },
                           ),
 
-                          //! Phone Number Field
-                          myTextFormField(
-                            textController: _phoneController,
-                            keyboardType: TextInputType.number,
-                            prefixIcon: const Icon(Icons.phone),
-                            label: "Phone",
-                            borderRadius: 10,
-                            validator: (nid) {
-                              if (nid.toString().isEmpty) {
-                                return "Phone can't be empty!";
-                              }
-                              return null;
-                            },
-                          ),
-
-                          //! Gender Field
-
-                          //! Martial Status Field
-
-                          //! Blood Type Field
+                          //todo Blood Type Field
 
                           //! Password Field
                           myTextFormField(
