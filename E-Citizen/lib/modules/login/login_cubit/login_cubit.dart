@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../models/user_model.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/exceptions.dart';
-import 'states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginCubit extends Cubit<ECitizenLoginStates> {
-  LoginCubit() : super(LoginOInitialState());
+import 'login_states.dart';
+
+class LoginCubit extends Cubit<LoginStates> {
+  LoginCubit() : super(LoginInitialState());
 
   static LoginCubit getCubit(context) => BlocProvider.of(context);
 

@@ -239,7 +239,7 @@ Widget buildRow({
 }
 
 //!
-Widget buildService({
+Widget buildService1({
   required String serviceName,
 }) =>
     Container(
@@ -302,5 +302,40 @@ Future<dynamic> myShowDialog({
         ],
       );
     },
+  );
+}
+
+// Navigate And Replace
+void navigateAndReplace({
+  required BuildContext context,
+  required Widget destination,
+}) {
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(
+      builder: (context) {
+        return destination;
+      },
+    ),
+  );
+}
+
+Widget buildService2({
+  required String serviceName,
+  required VoidCallback onTap,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Container(
+      child: ListTile(
+        onTap: onTap,
+        title: Text(
+          serviceName,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        tileColor: myBlueColor,
+      ),
+    ),
   );
 }

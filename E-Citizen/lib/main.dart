@@ -1,10 +1,19 @@
+import 'package:ecitizen/modules/login/login_cubit/login_cubit.dart';
 import 'package:ecitizen/modules/login/login_screen.dart';
-import 'package:ecitizen/shared/cubit/cubit.dart';
+import 'package:ecitizen/shared/bloc_observer.dart';
+import 'package:ecitizen/shared/cubit/app_cubit.dart';
 import 'package:ecitizen/shared/styles/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  // this function guarantee that all content of body of main will run then function runApp() will called
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Bloc.observer = MyBlocObserver();
+  await Firebase.initializeApp();
+  
   runApp(const ECitizen());
 }
 
@@ -17,6 +26,9 @@ class ECitizen extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => ECitizenCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LoginCubit(),
         ),
       ],
       child: MaterialApp(

@@ -1,14 +1,12 @@
-import 'package:ecitizen/modules/register/register_screen.dart';
+import 'package:ecitizen/layout/home_layout_screen.dart';
+import 'package:ecitizen/modules/login/login_cubit/login_cubit.dart';
 import 'package:ecitizen/shared/components/components.dart';
-import 'package:ecitizen/shared/cubit/cubit.dart';
-import 'package:ecitizen/shared/cubit/states.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/components/exceptions.dart';
 import '../../shared/styles/color.dart';
+import 'login_cubit/login_states.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BuildContext buildContext = context;
-    return BlocConsumer<ECitizenCubit, ECitizenStates>(
+    return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginErrorState) {
           if (state.exception is WrongPasswordAuthException) {
@@ -31,7 +29,7 @@ class LoginScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final cubit = ECitizenCubit.getCubit(context);
+        final cubit = LoginCubit.getCubit(context);
         return Scaffold(
           backgroundColor: color1,
           body: Center(
@@ -59,6 +57,7 @@ class LoginScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                //! Title
                                 const Padding(
                                   padding: EdgeInsets.only(bottom: 15),
                                   child: Text(
@@ -114,43 +113,12 @@ class LoginScreen extends StatelessWidget {
                                   text: "Login",
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
-                                      cubit.login(
-                                        _nidController.text,
-                                        _passwordController.text,
+                                      navigateAndReplace(
+                                        context: buildContext,
+                                        destination: const HomeLayoutScreen(),
                                       );
-                                    } else {}
+                                    }
                                   },
-                                ),
-
-                                //! Register Button
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Text(
-                                      'Don\'t have an account ? ',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        navigateTo(
-                                          context: buildContext,
-                                          destination: RegisterScreen(),
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Register from here',
-                                        style: (TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),
