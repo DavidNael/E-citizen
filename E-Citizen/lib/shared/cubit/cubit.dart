@@ -1,9 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecitizen/shared/components/components.dart';
 import 'package:ecitizen/shared/cubit/states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../models/user_model.dart';
+import '../components/exceptions.dart';
 
 class ECitizenCubit extends Cubit<ECitizenStates> {
   ECitizenCubit() : super(InitialState());
@@ -36,10 +40,44 @@ class ECitizenCubit extends Cubit<ECitizenStates> {
     }
   }
 
-  Future<void> login(String NID, String password) async {
-
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: NID, password: password);
+  String authinticate({
+    required String nid,
+    required String password,
+  }) {
+    // send data to firebase
+    return "";
   }
 
+  Future<void> login(String NID, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: NID, password: password);
+      emit(LoginSuccessState());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw UserNotFoundAuthException();
+      } else if (e.code == 'wrong-password') {
+        throw WrongPasswordAuthException();
+      } else {
+        throw UnknownAuthException();
+      }
+    } catch (_) {}
+  }
+
+  final users = FirebaseFirestore.instance.collection('users');
+
+  //! Return List Of Documents
+  Stream<Iterable<UserModel>>? allUsers({required String ownerUserId}) {
+    return users
+        .snapshots()
+        .map((event) => event.docs.map((doc) => UserModel.fromSnapshot(doc)));
+  }
+
+//   Future<UserModel> register({required String nid,required String phone,required String password}){
+// try{
+//   await users.doc(FirebaseAuth.instance.currentUser).set({
+
+//   });
+// }
+//   }
 }

@@ -1,5 +1,5 @@
 {
-  "cmake.sourceDirectory": "${workspaceFolder}/linux",
+  "cmake.sourceDirectory": "${workspaceFolder}/Users/Administrator/.vscode/extensions/twxs.cmake-0.0.17/node_modules/peg-cmake/test",
   "cSpell.words": [
     "datetime"
   ]

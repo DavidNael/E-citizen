@@ -15,11 +15,11 @@ Widget myTextFormField({
   VoidCallback? myOnTap,
   double borderRadius = 25.0,
   double width = double.infinity,
-  double height = 75,
+  double padding = 10,
 }) {
   return Container(
     padding: const EdgeInsets.only(bottom: 20),
-    height: height,
+    // height: height,
     width: width,
     child: TextFormField(
       controller: textController,
@@ -27,6 +27,8 @@ Widget myTextFormField({
       obscureText: isPassword,
       validator: (String? value) => validator(value),
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(padding),
+        errorMaxLines: 2,
         prefixIcon: prefixIcon,
         labelText: label,
         suffixIcon: suffixIcon,
@@ -34,7 +36,6 @@ Widget myTextFormField({
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
-
       onFieldSubmitted: myOnFieldSubmitted,
       onChanged: myOnChanged,
       onTap: myOnTap,
@@ -45,7 +46,7 @@ Widget myTextFormField({
 //Custom Elevated Button
 Widget myElevatedButton({
   required String text,
-  Color buttonColor = myYellow,
+  Color buttonColor = myYellow1,
   Color textColor = Colors.white,
   required VoidCallback onPressed,
 }) {
@@ -215,6 +216,7 @@ bool passwordValidator(String value) {
   }
 }
 
+//!
 Widget buildRow({
   required List<Widget> widgets,
   double space = 10,
@@ -233,5 +235,72 @@ Widget buildRow({
         itemCount: widgets.length,
       )
     ],
+  );
+}
+
+//!
+Widget buildService({
+  required String serviceName,
+}) =>
+    Container(
+      width: double.infinity,
+      height: 100,
+      decoration: BoxDecoration(
+        color: myBlueColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Text(
+        serviceName,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    );
+
+// todo test this function
+Future<dynamic> myShowDialog({
+  required BuildContext context,
+  required String title,
+  required String content,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        content: Text(
+          content,
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Center(
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
   );
 }

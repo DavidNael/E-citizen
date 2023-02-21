@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 const defaultColor = Colors.blue;
 const MaterialColor lightThemeColor = Colors.pink;
 const String dimDark = '243447';
-
 const Color color1 = Colors.white;
-//Choice 1
-// const Color myYellow = Color.fromARGB(255, 62, 151, 199);
- const Color myBlueColor = Color(0xFF0046A7);
-
-const Color myYellow = Color(0xFF0046A7);
-const Color myLightBlue2 = Color(0xFFBDCDD6);
+const Color myYellow1 = Color(0xFF0046A7);
+const Color myYellow2 = Color.fromARGB(255, 62, 151, 199);
+const Color myBlueColor = Color(0xFF0046A7);
 const Color myLightBlue = Color.fromARGB(255, 187, 221, 233);
+const Color myLightBlue2 = Color(0xFFBDCDD6);
 
+//! color maps
 const MaterialColor myYellowMaterial = MaterialColor(
   0xFFC29A50,
   <int, Color>{
@@ -42,7 +39,6 @@ const MaterialColor myBlueMaterial = MaterialColor(0xFF0046A7, <int, Color>{
   800: Color(0xFF0046A7),
   900: Color(0xFF0046A7),
 });
-// p1
 
 
 /*
@@ -51,4 +47,4 @@ const MaterialColor myBlueMaterial = MaterialColor(0xFF0046A7, <int, Color>{
   #154360, #D6DBDF, #FFFFFF
   #1B4F72, #F5F5F5, #FFFFFF
   #2C3E50, #BDC3C7, #F5F5F5
-  */
+*/

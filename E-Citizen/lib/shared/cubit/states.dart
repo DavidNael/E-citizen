@@ -11,3 +11,11 @@ class NIDInValidState extends ECitizenStates {}
 class PasswordInValidState extends ECitizenStates {}
 
 class PasswordValidState extends ECitizenStates {}
+
+class LoginSuccessState extends ECitizenStates {}
+
+class LoginErrorState extends ECitizenStates {
+  final Exception exception;
+
+  LoginErrorState(this.exception);
+}
