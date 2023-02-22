@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import 'app_states.dart';
 
-class ECitizenCubit extends Cubit<AppStates> {
-  ECitizenCubit() : super(AppInitialState());
+class AppCubit extends Cubit<AppStates> {
+  AppCubit() : super(AppInitialState());
 
-  static ECitizenCubit getCubit(context) => BlocProvider.of(context);
+  static AppCubit getCubit(context) => BlocProvider.of(context);
+
+  int homeIndex = 0;
+
+  
 }

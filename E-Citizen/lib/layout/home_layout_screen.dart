@@ -1,7 +1,10 @@
-import 'package:ecitizen/modules/services/services_screen.dart';
+import 'package:ecitizen/modules/home_screen.dart';
 import 'package:ecitizen/shared/components/components.dart';
+import 'package:ecitizen/shared/cubit/app_cubit.dart';
+import 'package:ecitizen/shared/cubit/app_states.dart';
 import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeLayoutScreen extends StatelessWidget {
   const HomeLayoutScreen({Key? key}) : super(key: key);
@@ -9,12 +12,15 @@ class HomeLayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       appBar: AppBar(
         title: const Text(
           'Home Screen',
           style: TextStyle(color: Colors.white),
         ),
       ),
+
+      //! Sidebar menu
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: SafeArea(
@@ -52,7 +58,9 @@ class HomeLayoutScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ServicesScreen(),
+
+      body: HomeScreen(),
+      drawerEdgeDragWidth: 80,
     );
   }
 }

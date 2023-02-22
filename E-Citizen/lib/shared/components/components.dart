@@ -1,5 +1,6 @@
 import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Custom TextFormField
 Widget myTextFormField({
@@ -16,12 +17,17 @@ Widget myTextFormField({
   double borderRadius = 25.0,
   double width = double.infinity,
   double padding = 10,
+  int characterLimit = 99,
+  String? defaultValue,
 }) {
   return Container(
     padding: const EdgeInsets.only(bottom: 20),
-    // height: height,
     width: width,
     child: TextFormField(
+      initialValue: defaultValue,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(characterLimit),
+      ],
       controller: textController,
       keyboardType: keyboardType,
       obscureText: isPassword,
@@ -351,6 +357,7 @@ void navigateAndReplace({
 
 Widget buildService2({
   required String serviceName,
+  required String serviceImagePath,
   required VoidCallback onTap,
 }) {
   return Padding(

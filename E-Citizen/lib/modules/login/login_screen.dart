@@ -10,8 +10,10 @@ import 'login_cubit/login_states.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-  final TextEditingController _nidController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nidController =
+      TextEditingController(text: '01234567891234');
+  final TextEditingController _passwordController =
+      TextEditingController(text: 'Abc12345');
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -93,6 +95,8 @@ class LoginScreen extends StatelessWidget {
 
                                 //!National ID Field
                                 myTextFormField(
+                                  // defaultValue: "01234567891234",
+                                  characterLimit: 14,
                                   textController: _nidController,
                                   keyboardType: TextInputType.number,
                                   prefixIcon: const Icon(Icons.person),
@@ -109,6 +113,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 //! Password Field
                                 myTextFormField(
+                                  // defaultValue: "Abc12345",
                                   textController: _passwordController,
                                   keyboardType: TextInputType.text,
                                   prefixIcon: const Icon(Icons.lock),

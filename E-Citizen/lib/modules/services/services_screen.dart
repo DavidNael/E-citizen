@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../../shared/styles/color.dart';
 import 'civil_status_services.dart';
 import 'education_service.dart';
 import 'emergency_disaster_service.dart';
@@ -70,25 +71,80 @@ class ServicesScreen extends StatelessWidget {
     BuildContext buildContext = context;
     return Padding(
         padding: const EdgeInsets.all(20.0),
-        child:
-            //!Grid View
-            GridView.builder(
-          itemCount: services.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisExtent: 200,
-            mainAxisSpacing: 5,
-            crossAxisSpacing: 5,
-          ),
-          itemBuilder: (context, index) {
-            return buildService2(
-                serviceName: services[index].serviceName,
-                onTap: () {
-                  navigateAndReplace(
-                      context: buildContext,
-                      destination: services[index].serviceScreen);
-                });
-          },
+        child: Column(
+          children: [
+            //! Profile Picture + Name + National ID
+            Expanded(
+              child: Container(
+                  padding: const EdgeInsets.all(18),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const CircleAvatar(
+                        backgroundColor: myBlueColor,
+                        radius: 40,
+                        child: Text(
+                          "D",
+                          style: TextStyle(
+                            fontSize: 45,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: myBlueColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text("David Nael Nady"),
+                          ),
+                          Container(
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text("00000000000000"),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+            ),
+
+            // //!Grid View
+            // GridView.builder(
+            //   itemCount: services.length,
+            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 2,
+            //     mainAxisExtent: 200,
+            //     mainAxisSpacing: 5,
+            //     crossAxisSpacing: 5,
+            //   ),
+            //   itemBuilder: (context, index) {
+            //     return buildService2(
+            //         serviceImagePath: '',
+            //         serviceName: services[index].serviceName,
+            //         onTap: () {
+            //           navigateAndReplace(
+            //               context: buildContext,
+            //               destination: services[index].serviceScreen);
+            //         });
+            //   },
+            // ),
+          ],
         )
         //! List View
         // ListView.separated(

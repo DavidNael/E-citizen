@@ -26,7 +26,7 @@ class ECitizen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ECitizenCubit(),
+          create: (context) => AppCubit(),
         ),
         BlocProvider(
           create: (context) => LoginCubit(),
