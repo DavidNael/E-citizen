@@ -69,20 +69,41 @@ class ServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     BuildContext buildContext = context;
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: ListView.separated(
-        itemBuilder: (context, index) => buildService2(
-            serviceName: services[index].serviceName,
-            onTap: () {
-              navigateAndReplace(
-                  context: buildContext,
-                  destination: services[index].serviceScreen);
-            }),
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 15,
-        ),
-        itemCount: services.length,
-      ),
-    );
+        padding: const EdgeInsets.all(20.0),
+        child:
+            //!Grid View
+            GridView.builder(
+          itemCount: services.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisExtent: 200,
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 5,
+          ),
+          itemBuilder: (context, index) {
+            return buildService2(
+                serviceName: services[index].serviceName,
+                onTap: () {
+                  navigateAndReplace(
+                      context: buildContext,
+                      destination: services[index].serviceScreen);
+                });
+          },
+        )
+        //! List View
+        // ListView.separated(
+        //   itemBuilder: (context, index) => buildService2(
+        //       serviceName: services[index].serviceName,
+        //       onTap: () {
+        //         navigateAndReplace(
+        //             context: buildContext,
+        //             destination: services[index].serviceScreen);
+        //       }),
+        //   separatorBuilder: (context, index) => const SizedBox(
+        //     height: 15,
+        //   ),
+        //   itemCount: services.length,
+        // ),
+        );
   }
 }

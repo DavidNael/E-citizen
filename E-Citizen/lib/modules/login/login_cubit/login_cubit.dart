@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
+import '../../../layout/home_layout_screen.dart';
 import '../../../models/user_model.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/exceptions.dart';
@@ -39,7 +41,7 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
-  String authinticate({
+  String authenticate({
     required String nid,
     required String password,
   }) {
@@ -49,18 +51,31 @@ class LoginCubit extends Cubit<LoginStates> {
 
   Future<void> login(String NID, String password) async {
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: NID, password: password);
+      emit(LoginInitialState());
+      //Try To Login To Firebase
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: "$NID@egypt.com",
+        password: password,
+      );
+      // If Login Success Emit Success State
       emit(LoginSuccessState());
     } on FirebaseAuthException catch (e) {
+      //Login With Unknown Email/Password
       if (e.code == 'user-not-found') {
-        throw UserNotFoundAuthException();
-      } else if (e.code == 'wrong-password') {
-        throw WrongPasswordAuthException();
-      } else {
-        throw UnknownAuthException();
+        emit(LoginErrorState(UserNotFoundAuthException()));
       }
-    } catch (_) {}
+      //Login With Known Email But Wrong Password
+      else if (e.code == 'wrong-password') {
+        emit(LoginErrorState(WrongPasswordAuthException()));
+      }
+      //Unknown Firebase Error
+      else {
+        emit(LoginErrorState(UnknownAuthException()));
+      }
+    } catch (_) {
+      //Unknown Error
+      emit(LoginErrorState(UnknownAuthException()));
+    }
   }
 
   final users = FirebaseFirestore.instance.collection('users');

@@ -53,6 +53,7 @@ Widget myElevatedButton({
   return ElevatedButton(
     onPressed: onPressed,
     style: TextButton.styleFrom(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: buttonColor,
     ),
     child: Text(
@@ -257,7 +258,6 @@ Widget buildService1({
       ),
     );
 
-// todo test this function
 Future<dynamic> myShowDialog({
   required BuildContext context,
   required String title,
@@ -305,17 +305,47 @@ Future<dynamic> myShowDialog({
   );
 }
 
+Future<dynamic> myLoadingDialog({
+  required BuildContext context,
+}) {
+  return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Column(
+          children: const [
+            Text(
+              "Loading...",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            CircularProgressIndicator(),
+          ],
+        ),
+        // actions: [],
+      );
+    },
+  );
+}
+
 // Navigate And Replace
 void navigateAndReplace({
   required BuildContext context,
   required Widget destination,
 }) {
-  Navigator.of(context).pushReplacement(
-    MaterialPageRoute(
-      builder: (context) {
-        return destination;
-      },
-    ),
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => destination),
+    (Route<dynamic> route) => false,
   );
 }
 
@@ -325,17 +355,17 @@ Widget buildService2({
 }) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 10),
-    child: Container(
-      child: ListTile(
-        onTap: onTap,
-        title: Text(
-          serviceName,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+    child: ListTile(
+      onTap: onTap,
+      title: Text(
+        serviceName,
+        style: const TextStyle(
+          color: Colors.white,
         ),
-        tileColor: myBlueColor,
+        textAlign: TextAlign.center,
       ),
+      tileColor: myBlueColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
   );
 }

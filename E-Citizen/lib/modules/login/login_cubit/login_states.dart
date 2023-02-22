@@ -10,6 +10,8 @@ class LoginPasswordInValidState extends LoginStates {}
 
 class LoginPasswordValidState extends LoginStates {}
 
+class LoggingState extends LoginStates {}
+
 class LoginSuccessState extends LoginStates {}
 
 class LoginErrorState extends LoginStates {

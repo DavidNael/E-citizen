@@ -18,14 +18,36 @@ class LoginScreen extends StatelessWidget {
     BuildContext buildContext = context;
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
-        if (state is LoginErrorState) {
+        if (state is LoginInitialState) {
+          myLoadingDialog(context: context);
+        } else if (state is LoginErrorState) {
+          //Pop Loading Screen
+          Navigator.pop(context);
           if (state.exception is WrongPasswordAuthException) {
             myShowDialog(
               context: buildContext,
               title: "Wrong Password",
               content: "The password you've entered is not correct.",
             );
+          } else if (state.exception is UserNotFoundAuthException) {
+            myShowDialog(
+              context: buildContext,
+              title: "User not found",
+              content: "Make sure you entered the credentials correctly.",
+            );
+          } else if (state.exception is UnknownAuthException) {
+            myShowDialog(
+              context: buildContext,
+              title: "Unknown Error",
+              content:
+                  "Make sure you are connected to the internet and try again.",
+            );
           }
+        } else if (state is LoginSuccessState) {
+          navigateAndReplace(
+            context: buildContext,
+            destination: const HomeLayoutScreen(),
+          );
         }
       },
       builder: (context, state) {
@@ -111,11 +133,11 @@ class LoginScreen extends StatelessWidget {
                                 //! Login Button
                                 myElevatedButton(
                                   text: "Login",
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (formKey.currentState!.validate()) {
-                                      navigateAndReplace(
-                                        context: buildContext,
-                                        destination: const HomeLayoutScreen(),
+                                      await cubit.login(
+                                        _nidController.text,
+                                        _passwordController.text,
                                       );
                                     }
                                   },

@@ -49,3 +49,27 @@ const String userFirstNameField = 'first_name';
 const String userLastNameField = 'last_name';
 const String userFatherNameField = 'father_name';
 const String userMotherNameField = 'mother_name';
+
+
+//! Accounts
+/*
+Email 1: 01234567891234@egypt.com
+Password 1: Abc12345
+
+Email 2: 12345678912345@egypt.com
+Password 2: Abc12345
+
+Email 3: 98765432109876@egypt.com
+Password 3: Abc12345
+
+Email 4: 00000000000000@egypt.com
+Password 4: Abc12345
+
+Email 5: 11111111111111@egypt.com
+Password 5: Abc12345
+
+
+
+
+
+*/
