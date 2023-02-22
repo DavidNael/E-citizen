@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/components/exceptions.dart';
 import '../../shared/styles/color.dart';
 import 'login_cubit/login_states.dart';
-
+// tests
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController _nidController =
