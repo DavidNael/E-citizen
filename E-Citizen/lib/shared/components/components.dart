@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -373,6 +375,132 @@ Widget buildService2({
       ),
       tileColor: myBlueColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    ),
+  );
+}
+
+Widget myPositionedCircle({
+  double width = 50,
+  double height = 50,
+  double? topOffset,
+  double? bottomOffset,
+  double? rightOffset,
+  double? leftOffset,
+}) {
+  return Positioned(
+    top: topOffset,
+    bottom: bottomOffset,
+    left: leftOffset,
+    right: rightOffset,
+    child: Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: myBlueColor,
+        shape: BoxShape.circle,
+      ),
+    ),
+  );
+}
+
+Widget myTitle({
+  String title = "User",
+  Color boxColor = myBlueColor,
+  Color textColor = Colors.white,
+  double boxOpacity = 1,
+}) {
+  return Container(
+    // alignment: Alignment.center,
+    decoration: BoxDecoration(
+      color: boxColor.withOpacity(boxOpacity),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: textColor,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget iconWidget({
+  String title = "",
+  IconData icon = Icons.error,
+  Color iconOutlineColor = myBlueColor,
+  Color iconColor = Colors.white,
+  Color textColor = Colors.white,
+}) {
+  return Row(
+    children: [
+      Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: iconOutlineColor,
+        ),
+        child: Icon(icon, color: iconColor),
+      ),
+      const SizedBox(
+        width: 10,
+      ),
+      Expanded(
+        child: Text(
+          title,
+          style: TextStyle(color: textColor),
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget settingTileWidget({
+  bool isEnabled = true,
+  String title = "",
+  String subtitle = "",
+  double borderRadius = 10.0,
+  double tileOpacity = 1,
+  double? width,
+  double? height,
+  IconData icon = Icons.error,
+  Color iconOutlineColor = myBlueColor,
+  Color iconColor = Colors.white,
+  Color tileColor = myBlueColor,
+  Color titleColor = Colors.white,
+  Color borderColor = backgroundColor,
+  VoidCallback? onTap,
+  Widget? trailing,
+}) {
+  return SizedBox(
+    width: width,
+    height: height,
+    child: Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Material(
+        color: tileColor.withOpacity(tileOpacity),
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: ListTile(
+          enabled: isEnabled,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: borderColor, width: 1),
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          title: iconWidget(
+            title: title,
+            textColor: titleColor,
+            icon: icon,
+            iconColor: iconColor,
+            iconOutlineColor: iconOutlineColor,
+          ),
+          subtitle: subtitle != "" ? Text(subtitle) : null,
+          onTap: onTap,
+          trailing: trailing,
+        ),
+      ),
     ),
   );
 }
