@@ -11,7 +11,7 @@ const String userPhoneNumbersField = 'phone_numbers';
 const String userBloodTypeField = 'phone_numbers';
 
 const String userEducationLevelField = 'education';
-const String userIsEdcuatedField = 'is_educated';
+const String userIsEducatedField = 'is_educated';
 
 // School Map
 const String userSchoolField = 'school';

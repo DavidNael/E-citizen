@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecitizen/shared/components/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/user_model.dart';
+
+final docID = FirebaseAuth.instance.currentUser!.uid;
 
 void createUser({
   required String uid,
@@ -40,25 +43,65 @@ void createUser({
     userID: uid,
   );
 
-  // await FirebaseFirestore.instance.collection('users').update{user.toMap();};
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(uid)
+      .set(user.toMap());
 }
 
-Map<dynamic, dynamic> eductaion = {
-  userSchoolField: 'Secondary',
-  userMasterUniversityField: 'master',
-  // userMasterUniversityField: 'master',
+
+Map<dynamic, dynamic> education = {
+  userIsEducatedField: true,
+  userBachelorField: {
+    userBachelorLevelField: 0,
+    userBachelorUniversityField: "Cairo",
+    userHaveBachelorField: true,
+  },
+  userMasterField: {
+    userHaveMasterField: false,
+    userMasterNameField: "",
+    userMasterUniversityField: "",
+  },
+  userPHDField: {
+    userHavePHDField: false,
+    userPHDNameField: "",
+    userPHDUniversityField: "",
+  },
+  userSchoolField: {
+    userSchoolLevelField: 'Secondary',
+    userSchoolNameField: 'مدرسة الحياة',
+  }
 };
 
 Map<dynamic, dynamic> martial = {
-  userMarriedField: true,
+  userSingleField: true,
+  userMarriedField: false,
+  userDivorcedField: false,
 };
 
-List<dynamic> addresses = ['address'];
-List<dynamic> phones = ['0114522002'];
-List<dynamic> jobs = ['whore'];
+List<dynamic> addresses = ['address', "Address 2"];
+List<dynamic> phones = ['0114522002', "01232131041"];
+List<dynamic> jobs = ['whore', "Programmer"];
 
 
-
+  // createUser(
+  //     uid: '88XoFRLIhgSRHcGzMG6pUoEyNBq1',
+  //     authority: 'authority',
+  //     birthDate: 'birthDate',
+  //     birthPlace: 'birthPlace',
+  //     educationLevel: education,
+  //     martialStatus: martial,
+  //     fatherName: 'fatherName',
+  //     motherName:' motherName',
+  //     firstName: 'firstName',
+  //     lastName: 'lastName',
+  //     gender: true,
+  //     nationalID: 'nationalID',
+  //     jobs: jobs,
+  //     phoneNumbers: phones,
+  //     addresses: addresses,
+  //     children: [],
+  //     );
 
 
 

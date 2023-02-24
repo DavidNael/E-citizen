@@ -1,4 +1,5 @@
 import 'package:ecitizen/layout/home_layout_cubit/home_layout_cubit.dart';
+import 'package:ecitizen/models/user_model.dart';
 import 'package:ecitizen/modules/login/login_cubit/login_cubit.dart';
 import 'package:ecitizen/modules/login/login_screen.dart';
 import 'package:ecitizen/shared/bloc_observer.dart';
@@ -17,24 +18,6 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp();
 
-  createUser(
-      uid: '88XoFRLIhgSRHcGzMG6pUoEyNBq1',
-      authority: 'authority',
-      birthDate: 'birthDate',
-      birthPlace: 'birthPlace',
-      educationLevel: eductaion,
-      martialStatus: martial,
-      fatherName: 'fatherName',
-      motherName:' motherName',
-      firstName: 'firstName',
-      lastName: 'lastName',
-      gender: true,
-      nationalID: 'nationalID',
-      jobs: jobs,
-      phoneNumbers: phones,
-      addresses: addresses,
-      children: [],
-      );
   runApp(const ECitizen());
 }
 

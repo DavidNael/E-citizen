@@ -15,7 +15,7 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
 
   static LoginCubit getCubit(context) => BlocProvider.of(context);
-
+  UserModel? user;
   String? validateNID(String nid) {
     if (nid.isEmpty) {
       emit(LoginNIDInValidState());
@@ -59,6 +59,8 @@ class LoginCubit extends Cubit<LoginStates> {
         password: password,
       );
       // If Login Success Emit Success State
+      user = await getUserData(FirebaseAuth.instance.currentUser!.uid);
+      print(user?.firstName ?? "Nulll");
       emit(LoginSuccessState());
     } on FirebaseAuthException catch (e) {
       //Login With Unknown Email/Password
@@ -71,10 +73,12 @@ class LoginCubit extends Cubit<LoginStates> {
       }
       //Unknown Firebase Error
       else {
+        print(e.code);
         emit(LoginErrorState(UnknownAuthException()));
       }
-    } catch (_) {
+    } catch (other) {
       //Unknown Error
+      print(other);
       emit(LoginErrorState(UnknownAuthException()));
     }
   }
