@@ -274,110 +274,135 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
 
-                  //! Announcement
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        // color: backgroundColor,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Announcements",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: Colors.black,
-                              ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        //! Announcement
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
                             ),
-                            SizedBox(
-                              height: 25,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "Announcements",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Text(
+                                  "No announcements available. ",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                )
+                              ],
                             ),
-                            Text(
-                              "No announcements available. ",
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                      ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        //! Quick Access section
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Quick Access",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    settingTileWidget(
+                                      width: 150,
+                                      title: "Services",
+                                      icon: Icons.build,
+                                      onTap: () {},
+                                      tileOpacity: 0.8,
+                                      borderColor: Colors.black,
+                                    ),
+                                    settingTileWidget(
+                                      width: 150,
+                                      title: "My Wallet",
+                                      icon: Icons.wallet,
+                                      onTap: () {},
+                                      tileOpacity: 0.8,
+                                      borderColor: Colors.black,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    settingTileWidget(
+                                      width: 170,
+                                      title: "Pay Taxes",
+                                      icon: Icons.attach_money,
+                                      onTap: () {},
+                                      tileOpacity: 0.8,
+                                      borderColor: Colors.black,
+                                    ),
+                                    settingTileWidget(
+                                      width: 140,
+                                      title: "Profile",
+                                      icon: Icons.person,
+                                      onTap: () {},
+                                      tileOpacity: 0.8,
+                                      borderColor: Colors.black,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
 
-                  //! Quick Access section
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Quick Access",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              settingTileWidget(
-                                width: 150,
-                                title: "Services",
-                                icon: Icons.build,
-                                onTap: () {},
-                                tileOpacity: 0.8,
-                                borderColor: Colors.black,
-                              ),
-                              settingTileWidget(
-                                width: 150,
-                                title: "My Wallet",
-                                icon: Icons.wallet,
-                                onTap: () {},
-                                tileOpacity: 0.8,
-                                borderColor: Colors.black,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              settingTileWidget(
-                                width: 170,
-                                title: "Pay Taxes",
-                                icon: Icons.attach_money,
-                                onTap: () {},
-                                tileOpacity: 0.8,
-                                borderColor: Colors.black,
-                              ),
-                              settingTileWidget(
-                                width: 140,
-                                title: "Profile",
-                                icon: Icons.person,
-                                onTap: () {},
-                                tileOpacity: 0.8,
-                                borderColor: Colors.black,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(20.0),
+                  //     child:
+                  //   ),
+                  // ),
                 ],
               ),
             ),
