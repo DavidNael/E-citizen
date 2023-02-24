@@ -59,124 +59,97 @@ class LoginScreen extends StatelessWidget {
         final cubit = LoginCubit.getCubit(context);
         return Scaffold(
           backgroundColor: backgroundColor,
-          body: Stack(
-            children: [
-              myPositionedCircle(
-                width: 128,
-                height: 128,
-                topOffset: 20,
-                rightOffset: 20,
-              ),
-              myPositionedCircle(),
-              myPositionedCircle(
-                bottomOffset: 20,
-                width: 50,
-                height: 50,
-                leftOffset: 50,
-              ),
-              myPositionedCircle(
-                width: 75,
-                height: 75,
-                topOffset: 500,
-                rightOffset: 50,
-              ),
-              myPositionedCircle(
-                width: 75,
-                height: 75,
-                topOffset: 250,
-                leftOffset: 50,
-              ),
-              //login Form
-              Center(
-                child: SingleChildScrollView(
-                  child: SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: darkBackgroundColor,
-                            width: 2.1,
-                          ),
-                          color: Colors.white.withOpacity(0.95),
+          //login Form
+          body: blurEffect(
+            child: Center(
+              child: SingleChildScrollView(
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: darkBackgroundColor,
+                          width: 2.1,
                         ),
-                        child: Form(
-                          key: formKey,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                //! Title
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 15),
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 35,
-                                    ),
+                        color: Colors.white.withOpacity(0.65),
+                      ),
+                      child: Form(
+                        key: formKey,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              //! Title
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 15),
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 35,
                                   ),
                                 ),
+                              ),
 
-                                //!National ID Field
-                                myTextFormField(
-                                  // defaultValue: "01234567891234",
-                                  characterLimit: 14,
-                                  textController: _nidController,
-                                  keyboardType: TextInputType.number,
-                                  prefixIcon: const Icon(Icons.person),
-                                  label: "National ID",
-                                  borderRadius: 10,
-                                  validator: (nid) {
-                                    if (nid.toString().isEmpty) {
-                                      return "National ID can't be empty!";
-                                    } else if (nid.toString().length != 14) {
-                                      return "National ID must be 14 digits long";
-                                    }
-                                    return null;
-                                  },
+                              //!National ID Field
+                              myTextFormField(
+                                // defaultValue: "01234567891234",
+                                characterLimit: 14,
+                                textController: _nidController,
+                                keyboardType: TextInputType.number,
+                                prefixIcon: const Icon(Icons.person),
+                                label: "National ID",
+                                borderRadius: 10,
+                                validator: (nid) {
+                                  if (nid.toString().isEmpty) {
+                                    return "National ID can't be empty!";
+                                  } else if (nid.toString().length != 14) {
+                                    return "National ID must be 14 digits long";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              //! Password Field
+                              myTextFormField(
+                                // defaultValue: "Abc12345",
+                                textController: _passwordController,
+                                keyboardType: TextInputType.text,
+                                prefixIcon: const Icon(Icons.lock),
+                                isPassword: true,
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.remove_red_eye),
+                                  onPressed: () {},
                                 ),
-                                //! Password Field
-                                myTextFormField(
-                                  // defaultValue: "Abc12345",
-                                  textController: _passwordController,
-                                  keyboardType: TextInputType.text,
-                                  prefixIcon: const Icon(Icons.lock),
-                                  isPassword: true,
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(Icons.remove_red_eye),
-                                    onPressed: () {},
-                                  ),
-                                  label: "Password",
-                                  borderRadius: 10,
-                                  validator: (password) {
-                                    if (password.toString().isEmpty) {
-                                      return "Password can't be empty!";
-                                    } else if (!passwordValidator(
-                                        password.toString())) {
-                                      return "Weak Password. password must contain numerical digit and at least 8 characters long.";
-                                    }
-                                    return null;
-                                  },
-                                ),
+                                label: "Password",
+                                borderRadius: 10,
+                                validator: (password) {
+                                  if (password.toString().isEmpty) {
+                                    return "Password can't be empty!";
+                                  } else if (!passwordValidator(
+                                      password.toString())) {
+                                    return "Weak Password. password must contain numerical digit and at least 8 characters long.";
+                                  }
+                                  return null;
+                                },
+                              ),
 
-                                //! Login Button
-                                myElevatedButton(
-                                  text: "Login",
-                                  onPressed: () async {
-                                    if (formKey.currentState!.validate()) {
-                                      await cubit.login(
-                                        _nidController.text,
-                                        _passwordController.text,
-                                      );
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
+                              //! Login Button
+                              myElevatedButton(
+                                text: "Login",
+                                onPressed: () async {
+                                  if (formKey.currentState!.validate()) {
+                                    await cubit.login(
+                                      _nidController.text,
+                                      _passwordController.text,
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -184,7 +157,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         );
       },

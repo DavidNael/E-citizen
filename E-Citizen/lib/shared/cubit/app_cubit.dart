@@ -12,6 +12,5 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit getCubit(context) => BlocProvider.of(context);
 
-  int homeIndex = 0;
   
 }

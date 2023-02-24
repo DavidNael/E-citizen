@@ -1,4 +1,5 @@
 abstract class HomeLayoutStates {}
 
-class InitialState extends HomeLayoutStates{}
-class ChangeNavBarState extends HomeLayoutStates{}
+class InitialState extends HomeLayoutStates {}
+
+class ChangeIndexState extends HomeLayoutStates {}
