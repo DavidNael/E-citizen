@@ -53,9 +53,10 @@ ThemeData lightTheme() {
     // control bottom navbar
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 20,
-      selectedItemColor: lightThemeColor,
+      selectedItemColor: myBlueColor,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Colors.black,
+      backgroundColor: yellowOpacity,
     ),
   );
 }

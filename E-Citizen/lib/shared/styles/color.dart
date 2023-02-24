@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//# Colors
 const defaultColor = Colors.blue;
 const MaterialColor lightThemeColor = Colors.pink;
 const String dimDark = '243447';
@@ -7,9 +8,21 @@ const Color backgroundColor = Color.fromARGB(255, 190, 190, 190);
 const Color darkBackgroundColor = Color.fromARGB(255, 120, 120, 120);
 const Color myYellow1 = Color(0xFF0046A7);
 const Color myYellow2 = Color.fromARGB(255, 62, 151, 199);
-const Color myBlueColor = Color(0xFF0046A7);
+// const Color myBlueColor = Color.fromARGB(255, 175, 32, 22);
+const Color myBlueColor = Color.fromARGB(255, 19, 168, 128);
+// const Color myBlueColor = Color(0xFF0046A7);
+const Color myGreyColor = Color.fromARGB(255, 75, 75, 75);
 const Color myLightBlue = Color.fromARGB(255, 187, 221, 233);
 const Color myLightBlue2 = Color(0xFFBDCDD6);
+const Color whiteOpacity = Color.fromARGB(50, 255, 255, 255);
+const Color yellowOpacity = Color.fromARGB(50, 215, 160, 100);
+
+//! Tile Colors
+
+const Color tileColor = Color.fromARGB(255, 200, 200, 200);
+const Color tileIconOutlineColor = myBlueColor;
+const Color tileIconColor = Colors.white;
+const Color textColor = Colors.black;
 
 //! color maps
 const MaterialColor myYellowMaterial = MaterialColor(

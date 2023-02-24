@@ -1,3 +1,4 @@
+import 'package:ecitizen/layout/home_layout_cubit/home_layout_cubit.dart';
 import 'package:ecitizen/modules/login/login_cubit/login_cubit.dart';
 import 'package:ecitizen/modules/login/login_screen.dart';
 import 'package:ecitizen/shared/bloc_observer.dart';
@@ -31,6 +32,10 @@ class ECitizen extends StatelessWidget {
         BlocProvider(
           create: (context) => LoginCubit(),
         ),
+        BlocProvider(
+          create: (context) => HomeLayoutCubit(),
+        ),
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecitizen/modules/home_screen.dart';
 import 'package:ecitizen/modules/services/services_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 const String userAddressesField = 'addresses';
 const String userAuthorityField = 'authority';
@@ -54,8 +55,6 @@ const String userFirstNameField = 'first_name';
 const String userLastNameField = 'last_name';
 const String userFatherNameField = 'father_name';
 const String userMotherNameField = 'mother_name';
-
-
 
 //! Accounts
 /*

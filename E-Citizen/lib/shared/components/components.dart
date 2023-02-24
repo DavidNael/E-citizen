@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:ui';
 
 import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
@@ -364,17 +365,20 @@ Widget buildService2({
 }) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 10),
-    child: ListTile(
-      onTap: onTap,
-      title: Text(
-        serviceName,
-        style: const TextStyle(
-          color: Colors.white,
+    child: Material(
+      color: myBlueColor.withOpacity(0.85),
+      borderRadius: BorderRadius.circular(20),
+      child: ListTile(
+        onTap: onTap,
+        title: Text(
+          serviceName,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
-      tileColor: myBlueColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
   );
 }
@@ -404,16 +408,24 @@ Widget myPositionedCircle({
 }
 
 Widget myTitle({
-  String title = "User",
-  Color boxColor = myBlueColor,
-  Color textColor = Colors.white,
+  bool isBold = false,
+  String title = "",
+  Color boxColor = tileColor,
+  Color textColor = Colors.black,
+  int maxLines = 1,
   double boxOpacity = 1,
+  double fontSize = 20,
+  IconData? icon,
 }) {
   return Container(
     // alignment: Alignment.center,
     decoration: BoxDecoration(
-      color: boxColor.withOpacity(boxOpacity),
+      // color: Colors.white.withOpacity(0.5).withOpacity(boxOpacity),
       borderRadius: BorderRadius.circular(10),
+      // border: Border.all(
+      //   color: Colors.black,
+      //   width: 0.5,
+      // ),
     ),
     child: Padding(
       padding: const EdgeInsets.all(10.0),
@@ -421,7 +433,10 @@ Widget myTitle({
         title,
         style: TextStyle(
           color: textColor,
+          fontSize: fontSize,
+          fontWeight: isBold ? FontWeight.bold : null,
         ),
+        maxLines: maxLines,
       ),
     ),
   );
@@ -430,6 +445,8 @@ Widget myTitle({
 Widget iconWidget({
   String title = "",
   IconData icon = Icons.error,
+  int maxTitleLines = 1,
+  bool disableIcon = false,
   Color iconOutlineColor = myBlueColor,
   Color iconColor = Colors.white,
   Color textColor = Colors.white,
@@ -438,11 +455,13 @@ Widget iconWidget({
     children: [
       Container(
         padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: iconOutlineColor,
-        ),
-        child: Icon(icon, color: iconColor),
+        decoration: disableIcon
+            ? null
+            : BoxDecoration(
+                shape: BoxShape.circle,
+                color: iconOutlineColor,
+              ),
+        child: disableIcon ? null : Icon(icon, color: iconColor),
       ),
       const SizedBox(
         width: 10,
@@ -452,6 +471,7 @@ Widget iconWidget({
           title,
           style: TextStyle(color: textColor),
           overflow: TextOverflow.ellipsis,
+          maxLines: maxTitleLines,
         ),
       ),
     ],
@@ -460,12 +480,14 @@ Widget iconWidget({
 
 Widget settingTileWidget({
   bool isEnabled = true,
+  bool disableIcon = false,
   String title = "",
   String subtitle = "",
   double borderRadius = 10.0,
   double tileOpacity = 1,
   double? width,
   double? height,
+  int maxTitleLines = 1,
   IconData icon = Icons.error,
   Color iconOutlineColor = myBlueColor,
   Color iconColor = Colors.white,
@@ -495,6 +517,8 @@ Widget settingTileWidget({
             icon: icon,
             iconColor: iconColor,
             iconOutlineColor: iconOutlineColor,
+            maxTitleLines: maxTitleLines,
+            disableIcon: disableIcon,
           ),
           subtitle: subtitle != "" ? Text(subtitle) : null,
           onTap: onTap,
@@ -502,5 +526,52 @@ Widget settingTileWidget({
         ),
       ),
     ),
+  );
+}
+
+Widget blurEffect({required Widget child}) {
+  return Stack(
+    children: [
+      //! Background Image
+      Image.network(
+        // "https://e7.pngegg.com/pngimages/915/155/png-clipart-flying-eagles-eagle-fly.png",
+        // "https://images.nationalgeographic.org/image/upload/t_edhub_resource_key_image/v1657572126/EducationHub/photos/RLTUT_Key_image.jpg",
+        // "https://e7.pngegg.com/pngimages/508/257/png-clipart-flag-of-egypt-desktop-google-play-egypt-flag-egypt-thumbnail.png",
+        // "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/2560px-Flag_of_Egypt.svg.png",
+        "https://cdn.mos.cms.futurecdn.net/7YrobQvFFzw8aWsAUtoYXB.jpg",
+
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+      ),
+
+      //! Frosted Glass Effect
+      Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.2),
+          // borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 2,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              // borderRadius: BorderRadius.circular(20),
+            ),
+            child: child,
+          ),
+        ),
+      ),
+    ],
   );
 }
