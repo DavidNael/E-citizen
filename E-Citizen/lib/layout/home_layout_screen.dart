@@ -1,13 +1,14 @@
 import 'package:ecitizen/modules/home_screen.dart';
 import 'package:ecitizen/modules/login/login_screen.dart';
 import 'package:ecitizen/modules/services/services_screen.dart';
-import 'package:ecitizen/shared/components/components.dart';
+import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:ecitizen/shared/cubit/app_cubit.dart';
 import 'package:ecitizen/shared/cubit/app_states.dart';
 import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../shared/components/page_transition_component.dart';
 import 'home_layout_cubit/home_layout_cubit.dart';
 import 'home_layout_cubit/home_layout_states.dart';
 

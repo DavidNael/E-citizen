@@ -4,12 +4,10 @@ import 'package:ecitizen/modules/services/service_model.dart';
 import 'package:ecitizen/modules/services/social_service.dart';
 import 'package:ecitizen/modules/services/taxation_service.dart';
 import 'package:ecitizen/modules/services/vehicle_service.dart';
-import 'package:ecitizen/shared/components/components.dart';
+import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../../shared/styles/color.dart';
+import '../../shared/components/page_transition_component.dart';
 import 'civil_status_services.dart';
 import 'education_service.dart';
 import 'emergency_disaster_service.dart';

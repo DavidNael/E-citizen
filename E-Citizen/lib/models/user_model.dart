@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../shared/components/constants.dart';
 
 class UserModel {
-  final String documentID;
-
+  String? documentID;
+  final String userID;
   final String authority;
   final String birthDate;
   final String birthPlace;
@@ -24,10 +24,11 @@ class UserModel {
   final List<dynamic> jobs;
   final List<dynamic> phoneNumbers;
   final List<dynamic> addresses;
+  final List<dynamic> children;
 
   //! Constructor
   UserModel({
-    required this.documentID,
+    required this.userID,
     required this.authority,
     required this.birthDate,
     required this.birthPlace,
@@ -42,10 +43,16 @@ class UserModel {
     required this.jobs,
     required this.phoneNumbers,
     required this.addresses,
+    required this.children,
   });
 
+  void setDocumentID(String doucmentID) {
+    this.documentID = documentID;
+  }
+
   UserModel.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot)
-      : documentID = snapshot.id,
+      : userID = snapshot.data()[userIDField] as String,
+        documentID = snapshot.id,
         gender = snapshot.data()[userGenderField] as bool,
         nationalID = snapshot.data()[userNationalIDField] as String,
         phoneNumbers = snapshot.data()[userPhoneNumbersField] as List<dynamic>,
@@ -61,11 +68,27 @@ class UserModel {
         fatherName = snapshot.data()[userFatherNameField] as String,
         motherName = snapshot.data()[userMotherNameField] as String,
         firstName = snapshot.data()[userFirstNameField] as String,
-        lastName = snapshot.data()[userLastNameField] as String;
+        lastName = snapshot.data()[userLastNameField] as String,
+        children = snapshot.data()[userChildren] as List<dynamic>;
+
+  Map<String, dynamic> toMap() {
+    return {
+      userIDField: userID,
+      userAuthorityField: authority,
+      userBirthDateField: birthDate,
+      userBirthPlaceField: birthPlace,
+      userEducationLevelField: educationLevel,
+      userMartialStatusField: martialStatus,
+      userFatherNameField: fatherName,
+      userMotherNameField: motherName,
+      userFirstNameField: firstName,
+      userLastNameField: lastName,
+      userGenderField: gender,
+      userNationalIDField: nationalID,
+      userJobsField: jobs,
+      userPhoneNumbersField: phoneNumbers,
+      userAddressesField: addresses,
+      userChildren: children,
+    };
+  }
 }
-
-
-
-
-
-

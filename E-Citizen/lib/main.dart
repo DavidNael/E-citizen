@@ -4,6 +4,7 @@ import 'package:ecitizen/modules/login/login_screen.dart';
 import 'package:ecitizen/shared/bloc_observer.dart';
 import 'package:ecitizen/shared/cubit/app_cubit.dart';
 import 'package:ecitizen/shared/styles/themes.dart';
+import 'package:ecitizen/temps/temp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,24 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp();
 
+  createUser(
+      uid: '88XoFRLIhgSRHcGzMG6pUoEyNBq1',
+      authority: 'authority',
+      birthDate: 'birthDate',
+      birthPlace: 'birthPlace',
+      educationLevel: eductaion,
+      martialStatus: martial,
+      fatherName: 'fatherName',
+      motherName:' motherName',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      gender: true,
+      nationalID: 'nationalID',
+      jobs: jobs,
+      phoneNumbers: phones,
+      addresses: addresses,
+      children: [],
+      );
   runApp(const ECitizen());
 }
 
@@ -35,7 +54,6 @@ class ECitizen extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeLayoutCubit(),
         ),
-        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

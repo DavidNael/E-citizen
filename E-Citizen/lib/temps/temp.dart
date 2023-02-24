@@ -1,3 +1,68 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecitizen/shared/components/constants.dart';
+
+import '../models/user_model.dart';
+
+void createUser({
+  required String uid,
+  required String authority,
+  required String birthDate,
+  required String birthPlace,
+  required Map<dynamic, dynamic> educationLevel,
+  required Map<dynamic, dynamic> martialStatus,
+  required String fatherName,
+  required String motherName,
+  required String firstName,
+  required String lastName,
+  required bool gender,
+  required String nationalID,
+  required List<dynamic> jobs,
+  required List<dynamic> phoneNumbers,
+  required List<dynamic> addresses,
+  required List<dynamic> children,
+}) async {
+  UserModel user = UserModel(
+    authority: authority,
+    birthDate: birthDate,
+    birthPlace: birthPlace,
+    educationLevel: educationLevel,
+    martialStatus: martialStatus,
+    fatherName: fatherName,
+    motherName: motherName,
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    nationalID: nationalID,
+    jobs: jobs,
+    phoneNumbers: phoneNumbers,
+    addresses: addresses,
+    children: children,
+    userID: uid,
+  );
+
+  // await FirebaseFirestore.instance.collection('users').update{user.toMap();};
+}
+
+Map<dynamic, dynamic> eductaion = {
+  userSchoolField: 'Secondary',
+  userMasterUniversityField: 'master',
+  // userMasterUniversityField: 'master',
+};
+
+Map<dynamic, dynamic> martial = {
+  userMarriedField: true,
+};
+
+List<dynamic> addresses = ['address'];
+List<dynamic> phones = ['0114522002'];
+List<dynamic> jobs = ['whore'];
+
+
+
+
+
+
+
 // import 'package:ecitizen/modules/login/login_screen.dart';
 // import 'package:ecitizen/shared/components/components.dart';
 // import 'package:ecitizen/shared/cubit/cubit.dart';

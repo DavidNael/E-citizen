@@ -1,6 +1,4 @@
-import 'dart:ffi';
 import 'dart:ui';
-
 import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,7 +50,7 @@ Widget myTextFormField({
   );
 }
 
-//Custom Elevated Button
+// Custom Elevated Button
 Widget myElevatedButton({
   required String text,
   Color buttonColor = myYellow1,
@@ -82,61 +80,64 @@ Widget myButton({
   double textSize = 20.0,
   required Function() onPressed,
   required String text,
-}) =>
-    Container(
-      width: width,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      child: MaterialButton(
-        onPressed: onPressed,
-        child: Text(
-          isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: textSize,
-          ),
+}) {
+  return Container(
+    width: width,
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(radius),
+    ),
+    child: MaterialButton(
+      onPressed: onPressed,
+      child: Text(
+        isUpperCase ? text.toUpperCase() : text,
+        style: TextStyle(
+          color: textColor,
+          fontSize: textSize,
         ),
       ),
-    );
+    ),
+  );
+}
 
 // Search bar
-Widget searchBar() => Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: SizedBox(
-        height: 48,
-        width: double.infinity,
-        child: TextFormField(
-          decoration: InputDecoration(
-            hintStyle: TextStyle(
-              fontSize: 13,
+Widget searchBar() {
+  return Padding(
+    padding: const EdgeInsets.all(5.0),
+    child: SizedBox(
+      height: 48,
+      width: double.infinity,
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintStyle: TextStyle(
+            fontSize: 13,
+            color: Colors.grey[600],
+          ),
+          filled: true,
+          focusColor: Colors.blue,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: const BorderSide(
+              width: 3.0,
+              color: Colors.blue,
+            ),
+          ),
+          prefixIcon: IconButton(
+            icon: Icon(
+              Icons.search,
+              size: 20,
               color: Colors.grey[600],
             ),
-            filled: true,
-            focusColor: Colors.blue,
-            fillColor: Colors.white,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
-              borderSide: const BorderSide(
-                width: 3.0,
-                color: Colors.blue,
-              ),
-            ),
-            prefixIcon: IconButton(
-              icon: Icon(
-                Icons.search,
-                size: 20,
-                color: Colors.grey[600],
-              ),
-              onPressed: () {},
-            ),
-            hintText: "Search",
+            onPressed: () {},
           ),
-          onFieldSubmitted: (value) {},
+          hintText: "Search",
         ),
+        onFieldSubmitted: (value) {},
       ),
-    );
+    ),
+  );
+}
 
 Widget verticalSeparator({double value = 10}) => SizedBox(height: value);
 
@@ -144,89 +145,29 @@ Widget horizontalSeparator({double value = 10}) => SizedBox(width: value);
 
 // Custom icon
 Widget myIcon(
-        {Color iconColor = Colors.white,
-        Color? backgroundColor,
-        required Icon icon,
-        Function()? onPressed}) =>
-    CircleAvatar(
-      backgroundColor: backgroundColor ?? Colors.black.withOpacity(0.6),
-      child: IconButton(
-        disabledColor: iconColor,
-        icon: icon,
-        onPressed: onPressed,
-      ),
-    );
-
-// Build model
-/*Widget buildUserModel(UserModel user) => Row(
-  children: [
-    CircleAvatar(
-      radius: 25,
-      backgroundColor: Colors.blue,
-      child: Text(
-        "${user.id}",
-        style: const TextStyle(color: Colors.white),
-      ),
+    {Color iconColor = Colors.white,
+    Color? backgroundColor,
+    required Icon icon,
+    Function()? onPressed}) {
+  return CircleAvatar(
+    backgroundColor: backgroundColor ?? Colors.black.withOpacity(0.6),
+    child: IconButton(
+      disabledColor: iconColor,
+      icon: icon,
+      onPressed: onPressed,
     ),
-    const SizedBox(
-      width: 10,
-    ),
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "${user.name}",
-        ),
-        Text(
-          "${user.phoneNumber}",
-        )
-      ],
-    ),
-  ],
-);*/
-
-// Navigation button
-Widget navButton({
-  required context,
-  required Widget destination,
-  required String name,
-}) =>
-    TextButton(
-        child: Text(
-          name,
-          style: const TextStyle(color: Colors.white),
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => destination,
-            ),
-          );
-        });
-
-void navigateTo({required BuildContext context, required Widget destination}) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => destination),
   );
 }
 
-BoxDecoration decorateContainer() => BoxDecoration(
-      color: Colors.blue,
-      borderRadius: BorderRadius.circular(25),
-    );
-//! Password Validator
-bool passwordValidator(String value) {
-  RegExp regExp = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-  if (regExp.hasMatch(value)) {
-    return true;
-  } else {
-    return false;
-  }
+// Control containers
+BoxDecoration decorateContainer() {
+  return BoxDecoration(
+    color: Colors.blue,
+    borderRadius: BorderRadius.circular(25),
+  );
 }
 
-//!
+// Build Row
 Widget buildRow({
   required List<Widget> widgets,
   double space = 10,
@@ -248,25 +189,27 @@ Widget buildRow({
   );
 }
 
-//!
+// Build Service 1
 Widget buildService1({
   required String serviceName,
-}) =>
-    Container(
-      width: double.infinity,
-      height: 100,
-      decoration: BoxDecoration(
-        color: myBlueColor,
-        borderRadius: BorderRadius.circular(15),
+}) {
+  return Container(
+    width: double.infinity,
+    height: 100,
+    decoration: BoxDecoration(
+      color: myBlueColor,
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: Text(
+      serviceName,
+      style: const TextStyle(
+        color: Colors.white,
       ),
-      child: Text(
-        serviceName,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    );
+    ),
+  );
+}
 
+// Alert Dialog
 Future<dynamic> myShowDialog({
   required BuildContext context,
   required String title,
@@ -314,6 +257,7 @@ Future<dynamic> myShowDialog({
   );
 }
 
+// Loading Dialog
 Future<dynamic> myLoadingDialog({
   required BuildContext context,
 }) {
@@ -346,18 +290,8 @@ Future<dynamic> myLoadingDialog({
   );
 }
 
-// Navigate And Replace
-void navigateAndReplace({
-  required BuildContext context,
-  required Widget destination,
-}) {
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (context) => destination),
-    (Route<dynamic> route) => false,
-  );
-}
-
+// todo put icon
+// Build Service 2
 Widget buildService2({
   required String serviceName,
   required String serviceImagePath,
@@ -370,12 +304,14 @@ Widget buildService2({
       borderRadius: BorderRadius.circular(20),
       child: ListTile(
         onTap: onTap,
-        title: Text(
-          serviceName,
-          style: const TextStyle(
-            color: Colors.white,
+        title: Center(
+          child: Text(
+            serviceName,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
@@ -383,6 +319,7 @@ Widget buildService2({
   );
 }
 
+// Login Screen Background (Circles)
 Widget myPositionedCircle({
   double width = 50,
   double height = 50,
@@ -399,7 +336,7 @@ Widget myPositionedCircle({
     child: Container(
       width: width,
       height: height,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: myBlueColor,
         shape: BoxShape.circle,
       ),
@@ -407,6 +344,7 @@ Widget myPositionedCircle({
   );
 }
 
+// Info Section In Home Screen
 Widget myTitle({
   bool isBold = false,
   String title = "",
@@ -442,6 +380,7 @@ Widget myTitle({
   );
 }
 
+// Logic Tile - Icon
 Widget iconWidget({
   String title = "",
   IconData icon = Icons.error,
@@ -478,6 +417,7 @@ Widget iconWidget({
   );
 }
 
+// Logic Tile - Container
 Widget settingTileWidget({
   bool isEnabled = true,
   bool disableIcon = false,
@@ -529,10 +469,11 @@ Widget settingTileWidget({
   );
 }
 
+// Control bluring
 Widget blurEffect({required Widget child}) {
   return Stack(
     children: [
-      //! Background Image
+      // Background Image
       Image.network(
         // "https://e7.pngegg.com/pngimages/915/155/png-clipart-flying-eagles-eagle-fly.png",
         // "https://images.nationalgeographic.org/image/upload/t_edhub_resource_key_image/v1657572126/EducationHub/photos/RLTUT_Key_image.jpg",
@@ -545,7 +486,7 @@ Widget blurEffect({required Widget child}) {
         height: double.infinity,
       ),
 
-      //! Frosted Glass Effect
+      // Frosted Glass Effect
       Container(
         width: double.infinity,
         height: double.infinity,

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:ecitizen/shared/components/components.dart';
+import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/styles/color.dart';

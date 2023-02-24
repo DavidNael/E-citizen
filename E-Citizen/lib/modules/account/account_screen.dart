@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../../shared/components/components.dart';
+import '../../shared/components/ui_components.dart';
 import '../../shared/styles/color.dart';
 
 class AccountScreen extends StatelessWidget {
