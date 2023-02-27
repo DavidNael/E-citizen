@@ -1,4 +1,4 @@
-import 'package:ecitizen/modules/home_screen.dart';
+import 'package:ecitizen/modules/home_screen/home_screen.dart';
 import 'package:ecitizen/modules/login/login_screen.dart';
 import 'package:ecitizen/modules/services/services_screen.dart';
 import 'package:ecitizen/shared/components/ui_components.dart';
@@ -8,7 +8,6 @@ import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../shared/components/page_transition_component.dart';
 import 'home_layout_cubit/home_layout_cubit.dart';
 import 'home_layout_cubit/home_layout_states.dart';
 
@@ -123,10 +122,11 @@ class HomeLayoutScreen extends StatelessWidget {
             body: cubit.screens[cubit.currentIndex],
             drawerEdgeDragWidth: 80,
             bottomNavigationBar: BottomNavigationBar(
+              
                 onTap: (value) {
                   cubit.changeIndex(value);
                 },
-                currentIndex: (cubit.currentIndex) > 3? 1 : cubit.currentIndex,
+                currentIndex: (cubit.currentIndex) > 3 ? 1 : cubit.currentIndex,
                 items: const [
                   BottomNavigationBarItem(
                     label: "Home",

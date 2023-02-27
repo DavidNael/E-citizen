@@ -23,7 +23,6 @@ void main() async {
 
 class ECitizen extends StatelessWidget {
   const ECitizen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

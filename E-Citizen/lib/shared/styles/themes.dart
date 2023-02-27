@@ -52,11 +52,12 @@ ThemeData lightTheme() {
 
     // control bottom navbar
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      
       elevation: 20,
       selectedItemColor: myBlueColor,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Colors.black,
-      backgroundColor: yellowOpacity,
+      backgroundColor: greyOpacity,
     ),
   );
 }

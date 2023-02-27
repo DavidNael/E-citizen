@@ -4,9 +4,9 @@ import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/styles/color.dart';
-import 'login/login_cubit/login_cubit.dart';
-import 'login/login_cubit/login_states.dart';
+import '../../../shared/styles/color.dart';
+import '../login/login_cubit/login_cubit.dart';
+import '../login/login_cubit/login_states.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
         final user = LoginCubit.getCubit(buildContext).user!;
         return blurEffect(
           child: SingleChildScrollView(
-            // physics: const NeverScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -27,12 +26,20 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.5),
+                      color: Colors.white.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2,
-                      ),
+                      // border: Border.all(
+                      //   color: Colors.black,
+                      //   width: 2,
+                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
@@ -50,7 +57,8 @@ class HomeScreen extends StatelessWidget {
                                   width: 120,
                                   height: 120,
                                   decoration: BoxDecoration(
-                                      color: myBlueColor.withOpacity(0.9),
+                                      border: Border.all(color: Colors.black),
+                                      color: myBlueColor,
                                       borderRadius: BorderRadius.circular(20)),
                                   // radius: 60,
                                   child: Center(
@@ -108,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 5),
                             child: myTitle(
-                              title: "Balance: any value",
+                              title: "Balance: 5000.00",
                               boxOpacity: 0.5,
                             ),
                           ),
@@ -123,12 +131,20 @@ class HomeScreen extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
+                        color: Colors.white.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2,
-                        ),
+                        // border: Border.all(
+                        //   color: Colors.black,
+                        //   width: 2,
+                        // ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -162,12 +178,20 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.5),
+                      color: Colors.white.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2,
-                      ),
+                      // border: Border.all(
+                      //   color: Colors.black,
+                      //   width: 2,
+                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),

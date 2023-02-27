@@ -473,18 +473,34 @@ Widget settingTileWidget({
 Widget blurEffect({required Widget child}) {
   return Stack(
     children: [
-      // Background Image
-      Image.network(
-        // "https://e7.pngegg.com/pngimages/915/155/png-clipart-flying-eagles-eagle-fly.png",
-        // "https://images.nationalgeographic.org/image/upload/t_edhub_resource_key_image/v1657572126/EducationHub/photos/RLTUT_Key_image.jpg",
-        // "https://e7.pngegg.com/pngimages/508/257/png-clipart-flag-of-egypt-desktop-google-play-egypt-flag-egypt-thumbnail.png",
-        // "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/2560px-Flag_of_Egypt.svg.png",
-        "https://cdn.mos.cms.futurecdn.net/7YrobQvFFzw8aWsAUtoYXB.jpg",
+      /// Background Image
+      // Image.network(
+      //   // "https://e7.pngegg.com/pngimages/915/155/png-clipart-flying-eagles-eagle-fly.png",
+      //   // "https://images.nationalgeographic.org/image/upload/t_edhub_resource_key_image/v1657572126/EducationHub/photos/RLTUT_Key_image.jpg",
+      //   // "https://e7.pngegg.com/pngimages/508/257/png-clipart-flag-of-egypt-desktop-google-play-egypt-flag-egypt-thumbnail.png",
+      //   // "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/2560px-Flag_of_Egypt.svg.png",
+      //   "https://cdn.mos.cms.futurecdn.net/7YrobQvFFzw8aWsAUtoYXB.jpg",
 
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
-      ),
+      //   fit: BoxFit.cover,
+      //   width: double.infinity,
+      //   height: double.infinity,
+      // ),
+
+      
+      /// Gradient Container
+      // Container(
+      //   decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //       tileMode: TileMode.clamp,
+      //       begin: Alignment.centerLeft,
+      //       end: Alignment.centerRight,
+      //       colors: [
+      //         Colors.purple,
+      //         Color.fromARGB(255, 255, 17, 1),
+      //       ],
+      //     ),
+      //   ),
+      // ),
 
       // Frosted Glass Effect
       Container(
@@ -492,7 +508,6 @@ Widget blurEffect({required Widget child}) {
         height: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.2),
-          // borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.4),
@@ -503,7 +518,7 @@ Widget blurEffect({required Widget child}) {
           ],
         ),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          filter: ImageFilter.blur(sigmaX: 0.1, sigmaY: 0.1),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.2),
@@ -514,5 +529,34 @@ Widget blurEffect({required Widget child}) {
         ),
       ),
     ],
+  );
+}
+
+Widget background({required Widget child}) {
+  return SingleChildScrollView(
+    child: Stack(
+      children: [
+        Container(
+          height: 100,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            border: Border.all(),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
+          child: Center(
+              child: Text(
+            "E-Citizen",
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          )),
+        ),
+        Padding(padding: EdgeInsets.only(top: 50), child: child)
+      ],
+    ),
   );
 }
