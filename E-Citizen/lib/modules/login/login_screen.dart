@@ -4,7 +4,6 @@ import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/components/logic_components.dart';
 import '../../shared/components/page_transition_component.dart';
 import '../../shared/cubit/exceptions.dart';
 import '../../shared/styles/color.dart';
@@ -129,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                                 validator: (password) {
                                   if (password.toString().isEmpty) {
                                     return "Password can't be empty!";
-                                  } else if (!passwordValidator(
+                                  } else if (!cubit.passwordValidator(
                                       password.toString())) {
                                     return "Weak Password. password must contain numerical digit and at least 8 characters long.";
                                   }
@@ -143,8 +142,9 @@ class LoginScreen extends StatelessWidget {
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
                                     await cubit.login(
-                                      _nidController.text,
-                                      _passwordController.text,
+                                      context: buildContext,
+                                      NID: _nidController.text,
+                                      password: _passwordController.text,
                                     );
                                   }
                                 },

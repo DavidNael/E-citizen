@@ -3,7 +3,6 @@ import 'package:ecitizen/modules/account/account_screen.dart';
 import 'package:ecitizen/modules/home_screen/home_screen.dart';
 import 'package:ecitizen/modules/services/civil_status_services.dart';
 import 'package:ecitizen/modules/services/education_service.dart';
-import 'package:ecitizen/modules/services/emergency_disaster_service.dart';
 import 'package:ecitizen/modules/services/health_service.dart';
 import 'package:ecitizen/modules/services/judicial_service.dart';
 import 'package:ecitizen/modules/services/land_property_service.dart';
@@ -31,7 +30,6 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     blurEffect(child: const AccountScreen()),
     blurEffect(child: const CivilStatusService()),
     blurEffect(child: const EducationService()),
-    blurEffect(child: const EmergencyDisasterService()),
     blurEffect(child: const HealthServices()),
     blurEffect(child: const JudicialServices()),
     blurEffect(child: const LandPropertyServices()),

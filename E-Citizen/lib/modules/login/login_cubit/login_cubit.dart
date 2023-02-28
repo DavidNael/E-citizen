@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecitizen/models/user_education_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-
-import '../../../layout/home_layout_screen.dart';
-import '../../../models/user_model.dart';
-import '../../../shared/components/logic_components.dart';
-import '../../../shared/components/ui_components.dart';
+import 'package:logger/logger.dart';
+import '../../../shared/cubit/app_cubit.dart';
 import '../../../shared/cubit/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +11,7 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
 
   static LoginCubit getCubit(context) => BlocProvider.of(context);
-  UserModel? user;
+
   String? validateNID(String nid) {
     if (nid.isEmpty) {
       emit(LoginNIDInValidState());
@@ -50,29 +46,58 @@ class LoginCubit extends Cubit<LoginStates> {
     return "";
   }
 
-  Future<void> login(String NID, String password) async {
+  bool passwordValidator(String value) {
+    RegExp regExp = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    if (regExp.hasMatch(value)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> login({
+    // ignore: non_constant_identifier_names
+    required String NID,
+    required String password,
+    required context,
+  }) async {
     try {
+      // Try To Login To Firebase
+
       emit(LoginInitialState());
-      //Try To Login To Firebase
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+
+      AppCubit appCubit = AppCubit.getCubit(context);
+
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: "$NID@egypt.com",
         password: password,
       );
+
       // If Login Success Emit Success State
-      user = await getUserData(FirebaseAuth.instance.currentUser!.uid);
-      print(user?.firstName ?? "Nulll");
+      appCubit.userDataModel =
+          await appCubit.getUserDataModel(documentID: userCredential.user!.uid);
+
+      appCubit.userEducationModel = await appCubit.getUserEducationModel(
+          documentID: userCredential.user!.uid);
+
+      final logger = Logger();
+      logger.w(appCubit.userDataModel?.firstName ?? "Nulllll");
+      logger.w(appCubit.userEducationModel?.userIsEducated ?? "Nulllll");
+      
       emit(LoginSuccessState());
     } on FirebaseAuthException catch (e) {
-      //Login With Unknown Email/Password
       if (e.code == 'user-not-found') {
+
+        // Login With Unknown Email/Password
         emit(LoginErrorState(UserNotFoundAuthException()));
-      }
-      //Login With Known Email But Wrong Password
-      else if (e.code == 'wrong-password') {
+      } else if (e.code == 'wrong-password') {
+
+        // Login With Known Email But Wrong Password
         emit(LoginErrorState(WrongPasswordAuthException()));
-      }
-      //Unknown Firebase Error
-      else {
+      } else {
+        
+        // Unknown Firebase Error
         print(e.code);
         emit(LoginErrorState(UnknownAuthException()));
       }
@@ -82,21 +107,4 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(LoginErrorState(UnknownAuthException()));
     }
   }
-
-  final users = FirebaseFirestore.instance.collection('users');
-
-  //! Return List Of Documents
-  Stream<Iterable<UserModel>>? allUsers({required String ownerUserId}) {
-    return users
-        .snapshots()
-        .map((event) => event.docs.map((doc) => UserModel.fromSnapshot(doc)));
-  }
-
-//   Future<UserModel> register({required String nid,required String phone,required String password}){
-// try{
-//   await users.doc(FirebaseAuth.instance.currentUser).set({
-
-//   });
-// }
-//   }
 }

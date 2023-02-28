@@ -66,11 +66,11 @@ class CivilStatusService extends StatelessWidget {
                   title: 'Apply Marriage - Edit later',
                   icon: Icons.family_restroom,
                   onTap: () {
-                    myShowDialog(
-                        context: context,
-                        title: 'Marriage Request',
-                        content:
-                            'Marriage request has seen successfully sent.');
+                    myFormDialog(
+                      context: context,
+                      title: 'Marriage',
+                      successTitle: 'Marriage',
+                    );
                   }),
             ),
 
@@ -81,10 +81,11 @@ class CivilStatusService extends StatelessWidget {
                   title: 'Request Divorce Form - Edit later',
                   icon: Icons.balance,
                   onTap: () {
-                    myShowDialog(
-                        context: context,
-                        title: 'Divorce Request',
-                        content: 'Divorce request has seen successfully sent.');
+                    myFormDialog(
+                      context: context,
+                      title: 'Divorce',
+                      successTitle: 'Divorce',
+                    );
                   }),
             ),
           ],

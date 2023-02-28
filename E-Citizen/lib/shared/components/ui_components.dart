@@ -8,7 +8,7 @@ Widget myTextFormField({
   required TextEditingController textController,
   required TextInputType keyboardType,
   bool isPassword = false,
-  required Icon prefixIcon,
+  Icon? prefixIcon,
   IconButton? suffixIcon,
   required String label,
   required Function(String?) validator,
@@ -257,6 +257,99 @@ Future<dynamic> myShowDialog({
   );
 }
 
+// Popup TextFormField
+Future<dynamic> myFormDialog({
+  required BuildContext context,
+  required String title,
+  required String successTitle,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      final formKey = GlobalKey<FormState>();
+      final nidController = TextEditingController();
+      return AlertDialog(
+        scrollable: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        // backgroundColor: isDarkMode ? darkBorderTheme : lightBorderTheme,
+        title: Text(
+          title,
+          style: const TextStyle(
+              // color: isDarkMode ? darkTextTheme : lightTextTheme,
+              ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Form(
+              key: formKey,
+              child: myTextFormField(
+                borderRadius: 15,
+                textController: nidController,
+                keyboardType: TextInputType.number,
+                label: 'Partner National ID',
+                validator: (partnerNID) {
+                  if (partnerNID.toString().isEmpty) {
+                    return "National ID can't be empty!";
+                  } else if (partnerNID.toString().length != 14) {
+                    return "National ID must be 14 digits long";
+                  }
+                  return null;
+                },
+                characterLimit: 14,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //!Cancel Button
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                        // color: isDarkMode ? darkTextTheme : lightTextTheme,
+                        ),
+                  ),
+                ),
+                //!OK Button
+                TextButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      Navigator.pop(context);
+                      myShowDialog(
+                        context: context,
+                        title: '$successTitle Request',
+                        content:
+                            '$successTitle request has seen successfully sent.',
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(
+                        // color: isDarkMode ? darkTextTheme : lightTextTheme,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      );
+    },
+  );
+}
+
 // Loading Dialog
 Future<dynamic> myLoadingDialog({
   required BuildContext context,
@@ -297,11 +390,21 @@ Widget buildService2({
   required String serviceImagePath,
   required VoidCallback onTap,
 }) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 10),
-    child: Material(
+  return Container(
+    decoration: BoxDecoration(
       color: myBlueColor.withOpacity(0.85),
       borderRadius: BorderRadius.circular(20),
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: Colors.grey.withOpacity(0.5),
+      //     spreadRadius: 2,
+      //     blurRadius: 7,
+      //     offset: Offset(0, 3), // changes position of shadow
+      //   ),
+      // ],
+    ),
+    child: Padding(
+      padding: const EdgeInsets.only(bottom: 10),
       child: ListTile(
         onTap: onTap,
         title: Center(
@@ -486,7 +589,6 @@ Widget blurEffect({required Widget child}) {
       //   height: double.infinity,
       // ),
 
-      
       /// Gradient Container
       // Container(
       //   decoration: BoxDecoration(
@@ -542,12 +644,12 @@ Widget background({required Widget child}) {
           decoration: BoxDecoration(
             color: Colors.blue,
             border: Border.all(),
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
             ),
           ),
-          child: Center(
+          child: const Center(
               child: Text(
             "E-Citizen",
             style: TextStyle(
@@ -555,7 +657,7 @@ Widget background({required Widget child}) {
             ),
           )),
         ),
-        Padding(padding: EdgeInsets.only(top: 50), child: child)
+        Padding(padding: const EdgeInsets.only(top: 50), child: child)
       ],
     ),
   );

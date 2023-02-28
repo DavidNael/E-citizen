@@ -1,5 +1,9 @@
+import '../../models/user_data_model.dart';
+
+/// User Collection
 // Other
 const String userIDField = 'user_id';
+const String userBalanceField = 'user_balance';
 const String userAddressesField = 'addresses';
 const String userAuthorityField = 'authority';
 const String userBirthDateField = 'birth_date';
@@ -10,13 +14,43 @@ const String userGenderField = 'gender';
 const String userPhoneNumbersField = 'phone_numbers';
 const String userBloodTypeField = 'phone_numbers';
 
-const String userEducationLevelField = 'education';
+// Martial Status
+const String userMartialStatusField = 'martial_status';
+const String userSingleField = 'single';
+const String userMarriedField = 'married';
+const String userDivorcedField = 'divorced';
+
+// Names
+const String userFirstNameField = 'first_name';
+const String userLastNameField = 'last_name';
+const String userFatherNameField = 'father_name';
+const String userMotherNameField = 'mother_name';
+const String userChildren = 'user_children';
+
+/// Education Collection
 const String userIsEducatedField = 'is_educated';
 
 // School Map
 const String userSchoolField = 'school';
-const String userSchoolLevelField = 'school_level';
-const String userSchoolNameField = 'school_name';
+
+// Primary level
+const String userPrimarySchoolField = 'primary_school';
+const String userPrimarySchoolLevelField = 'primary_school_level';
+const String userPrimarySchoolNameField = 'primary_school_name';
+const String userPrimarySchoolGraduatedField = 'primary_school_graduated';
+
+// Preparatory level
+const String userPreparatorySchooField = 'preparatory_school';
+const String userPreparatorySchoolLevelField = 'preparatory_school_level';
+const String userPreparatorySchoolNameField = 'preparatory_school_name';
+const String userPreparatorySchoolGraduatedField =
+    'preparatory_school_graduated';
+
+// Secondary levelsecondary
+const String userSecondarySchoolField = 'secondary_school';
+const String userSecondarySchoolLevelField = 'secondary_school_level';
+const String userSecondarySchoolNameField = 'secondary_school_name';
+const String userSecondarySchoolGraduatedField = 'secondary_school_graduated';
 
 // Bachelor Map
 const String userBachelorField = 'bachelor';
@@ -37,34 +71,4 @@ const String userHavePHDField = 'have_phd';
 const String userPHDNameField = 'phd_name';
 const String userPHDUniversityField = 'phd_university';
 
-// Martial Status
-const String userMartialStatusField = 'martial_status';
-const String userSingleField = 'single';
-const String userMarriedField = 'married';
-const String userDivorcedField = 'divorced';
-
-// Names
-const String userFirstNameField = 'first_name';
-const String userLastNameField = 'last_name';
-const String userFatherNameField = 'father_name';
-const String userMotherNameField = 'mother_name';
-const String userChildren = 'user_children';
-
-
-//! Accounts
-
-// Email 1: 01234567891234@egypt.com
-// Password 1: Abc12345
-
-// Email 2: 12345678912345@egypt.com
-// Password 2: Abc12345
-
-// Email 3: 98765432109876@egypt.com
-// Password 3: Abc12345
-
-// Email 4: 00000000000000@egypt.com
-// Password 4: Abc12345
-
-// Email 5: 11111111111111@egypt.com
-// Password 5: Abc12345 
- 
+// late final UserDataModel user;

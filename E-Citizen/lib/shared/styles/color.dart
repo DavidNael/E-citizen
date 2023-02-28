@@ -12,7 +12,7 @@ const Color myYellow1 = Color(0xFF0046A7);
 const Color myYellow2 = Color.fromARGB(255, 67, 170, 225);
 
 /// const Color myBlueColor = Color.fromARGB(255, 175, 32, 22);
-const Color myBlueColor = Color.fromARGB(255, 13, 19, 181);
+const Color myBlueColor = Color.fromARGB(255, 13, 145, 181);
 
 /// const Color myBlueColor = Color(0xFF0046A7);
 const Color myGreyColor = Color.fromARGB(255, 75, 75, 75);
@@ -42,15 +42,18 @@ const MaterialColor myYellowMaterial = MaterialColor(
   },
 );
 
-const MaterialColor myBlueMaterial = MaterialColor(0xFF0046A7, <int, Color>{
-  50: Color(0xFF0046A7),
-  100: Color(0xFF0046A7),
-  200: Color(0xFF0046A7),
-  300: Color(0xFF0046A7),
-  400: Color(0xFF0046A7),
-  500: Color(0xFF0046A7),
-  600: Color(0xFF0046A7),
-  700: Color(0xFF0046A7),
-  800: Color(0xFF0046A7),
-  900: Color(0xFF0046A7),
-});
+const MaterialColor myBlueMaterial = MaterialColor(
+  0xFF0D91B5,
+  <int, Color>{
+    50: Color(0xFFE0F4FA),
+    100: Color(0xFFB3E4F1),
+    200: Color(0xFF80D4E7),
+    300: Color(0xFF4DC4DD),
+    400: Color(0xFF26B6D5),
+    500: Color(0xFF0D91B5), // primary color
+    600: Color(0xFF0C829F),
+    700: Color(0xFF0A6C86),
+    800: Color(0xFF08586D),
+    900: Color(0xFF064A5C),
+  },
+);

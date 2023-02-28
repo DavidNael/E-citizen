@@ -8,12 +8,11 @@ class ServicesScreen extends StatelessWidget {
   ServicesScreen({super.key});
 
   List<String> services = [
-    "Civil Status",
-    "Education Status",
-    "Emergency Status",
-    "Health Status",
-    "Judical Status",
-    "Land Property Status",
+    "Civil Service",
+    "Education Service",
+    "Health Service",
+    "Judical Service",
+    "Land Property Service",
     "Passport and Immagration Service",
     "Public Utilities Service",
     "Social Service",
@@ -28,9 +27,12 @@ class ServicesScreen extends StatelessWidget {
       builder: (context, state) {
         HomeLayoutCubit homeLayoutCubit =
             HomeLayoutCubit.getCubit(buildContext);
-        return blurEffect(
-            child: Padding(
-          padding: const EdgeInsets.all(15.0),
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: 25.0,
+            left: 25,
+            right: 25,
+          ),
           child: GridView.builder(
             itemCount: services.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -40,16 +42,18 @@ class ServicesScreen extends StatelessWidget {
               crossAxisSpacing: 10,
             ),
             itemBuilder: (context, index) {
-              return buildService2(
-                serviceName: services[index],
-                serviceImagePath: "",
-                onTap: () {
-                  homeLayoutCubit.changeIndex(index + 4);
-                },
-              );
+              
+                return buildService2(
+                  serviceName: services[index],
+                  serviceImagePath: "",
+                  onTap: () {
+                    homeLayoutCubit.changeIndex(index + 4);
+                  },
+                );
+              
             },
           ),
-        ));
+        );
       },
     );
     //! List View

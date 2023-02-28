@@ -1,21 +1,21 @@
-import 'dart:ui';
-
 import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../shared/styles/color.dart';
+import '../../shared/cubit/app_cubit.dart';
 import '../login/login_cubit/login_cubit.dart';
 import '../login/login_cubit/login_states.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     BuildContext buildContext = context;
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        final user = LoginCubit.getCubit(buildContext).user!;
+        final user = AppCubit.getCubit(buildContext).userDataModel!;
         return blurEffect(
           child: SingleChildScrollView(
             child: Padding(
@@ -28,16 +28,12 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(20),
-                      // border: Border.all(
-                      //   color: Colors.black,
-                      //   width: 2,
-                      // ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -73,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
 
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
 
@@ -116,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 5),
                             child: myTitle(
-                              title: "Balance: 5000.00",
+                              title: "Balance: ${user.userBalance}",
                               boxOpacity: 0.5,
                             ),
                           ),
@@ -142,7 +138,7 @@ class HomeScreen extends StatelessWidget {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+                            offset: const Offset(0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -189,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -206,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
                           settingTileWidget(
