@@ -40,7 +40,7 @@ const String userPrimarySchoolNameField = 'primary_school_name';
 const String userPrimarySchoolGraduatedField = 'primary_school_graduated';
 
 // Preparatory level
-const String userPreparatorySchooField = 'preparatory_school';
+const String userPreparatorySchoolField = 'preparatory_school';
 const String userPreparatorySchoolLevelField = 'preparatory_school_level';
 const String userPreparatorySchoolNameField = 'preparatory_school_name';
 const String userPreparatorySchoolGraduatedField =

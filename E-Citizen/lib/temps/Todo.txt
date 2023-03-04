@@ -1,0 +1,4 @@
+1- Remove First / Last name from model and Firestore 
+2- Add FullName Field Instead and Trim it as we like
+3- Implement Education Logic 
+4- Put Expansion Tile To Custom Widget //Done

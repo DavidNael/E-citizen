@@ -390,33 +390,37 @@ Widget buildService2({
   required String serviceImagePath,
   required VoidCallback onTap,
 }) {
-  return Container(
-    decoration: BoxDecoration(
-      color: myBlueColor.withOpacity(0.85),
-      borderRadius: BorderRadius.circular(20),
-      // boxShadow: [
-      //   BoxShadow(
-      //     color: Colors.grey.withOpacity(0.5),
-      //     spreadRadius: 2,
-      //     blurRadius: 7,
-      //     offset: Offset(0, 3), // changes position of shadow
-      //   ),
-      // ],
-    ),
-    child: Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: ListTile(
-        onTap: onTap,
-        title: Center(
-          child: Text(
-            serviceName,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.center,
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: Container(
+      decoration: BoxDecoration(
+        color: myBlueColor.withOpacity(0.85),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 4,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
           ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: ListTile(
+          onTap: onTap,
+          title: Center(
+            child: Text(
+              serviceName,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     ),
   );
@@ -450,23 +454,24 @@ Widget myPositionedCircle({
 // Info Section In Home Screen
 Widget myTitle({
   bool isBold = false,
+  bool isUnderline = false,
   String title = "",
-  Color boxColor = tileColor,
+  Color boxColor = Colors.transparent,
   Color textColor = Colors.black,
   int maxLines = 1,
-  double boxOpacity = 1,
+  double borderRadius = 0,
+  double boxOpacity = 0,
   double fontSize = 20,
+  TextAlign textAlign = TextAlign.start,
   IconData? icon,
+  BoxBorder? boxBorder,
 }) {
   return Container(
     // alignment: Alignment.center,
     decoration: BoxDecoration(
-      // color: Colors.white.withOpacity(0.5).withOpacity(boxOpacity),
+      color: boxColor.withOpacity(boxOpacity),
       borderRadius: BorderRadius.circular(10),
-      // border: Border.all(
-      //   color: Colors.black,
-      //   width: 0.5,
-      // ),
+      border: boxBorder,
     ),
     child: Padding(
       padding: const EdgeInsets.all(10.0),
@@ -476,8 +481,10 @@ Widget myTitle({
           color: textColor,
           fontSize: fontSize,
           fontWeight: isBold ? FontWeight.bold : null,
+          decoration: isUnderline ? TextDecoration.underline : null,
         ),
         maxLines: maxLines,
+        textAlign: textAlign,
       ),
     ),
   );
@@ -676,5 +683,73 @@ ExpansionPanel myExpansionPanel({
     },
     body: body,
     isExpanded: isExpanded,
+  );
+}
+
+Widget myTextField({
+  required TextEditingController textController,
+  TextInputType keyboardType = TextInputType.name,
+  bool isPassword = false,
+  bool isEnabled = true,
+  Icon? prefixIcon,
+  IconButton? suffixIcon,
+  required String label,
+  Function(String value)? onChanged,
+  VoidCallback? onTap,
+  double borderRadius = 25.0,
+  double width = double.infinity,
+  double padding = 10,
+  int characterLimit = 99,
+  String defaultValue = "",
+}) {
+  textController.text = defaultValue;
+  return Container(
+    padding: const EdgeInsets.only(bottom: 20),
+    width: width,
+    child: TextField(
+      enabled: isEnabled,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(characterLimit),
+      ],
+      controller: textController,
+      keyboardType: keyboardType,
+      obscureText: isPassword,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(padding),
+        errorMaxLines: 2,
+        prefixIcon: prefixIcon,
+        labelText: label,
+        suffixIcon: suffixIcon,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+      ),
+      onChanged: onChanged,
+      onTap: onTap,
+    ),
+  );
+}
+
+Widget myExpansionTile({
+  required String title,
+  List<Widget> children = const <Widget>[],
+  double collapsedBorderRadius = 10,
+  double borderRadius = 10,
+  double padding = 10,
+  Color collapsedBackgroundColor = whiteLowOpacity,
+  Color backgroundColor = whiteLowOpacity,
+}) {
+  return ExpansionTile(
+    title: Text(
+      title,
+    ),
+    childrenPadding: EdgeInsets.all(padding),
+    collapsedShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(collapsedBorderRadius)),
+    collapsedBackgroundColor: collapsedBackgroundColor,
+    backgroundColor: backgroundColor,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius)),
+    children: children,
   );
 }

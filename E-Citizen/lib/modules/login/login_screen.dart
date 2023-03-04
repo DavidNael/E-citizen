@@ -57,100 +57,103 @@ class LoginScreen extends StatelessWidget {
       builder: (context, state) {
         final cubit = LoginCubit.getCubit(context);
         return Scaffold(
-          backgroundColor: backgroundColor,
+          backgroundColor: whiteLowOpacity,
           //login Form
-          body: blurEffect(
-            child: Center(
-              child: SingleChildScrollView(
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: darkBackgroundColor,
-                          width: 2.1,
+          body: Center(
+            child: SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
                         ),
-                        color: Colors.white.withOpacity(0.65),
-                      ),
-                      child: Form(
-                        key: formKey,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              //! Title
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 15),
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 35,
-                                  ),
+                      ],
+                    ),
+                    child: Form(
+                      key: formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            //! Title
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 15),
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
                                 ),
                               ),
+                            ),
 
-                              //!National ID Field
-                              myTextFormField(
-                                // defaultValue: "01234567891234",
-                                characterLimit: 14,
-                                textController: _nidController,
-                                keyboardType: TextInputType.number,
-                                prefixIcon: const Icon(Icons.person),
-                                label: "National ID",
-                                borderRadius: 10,
-                                validator: (nid) {
-                                  if (nid.toString().isEmpty) {
-                                    return "National ID can't be empty!";
-                                  } else if (nid.toString().length != 14) {
-                                    return "National ID must be 14 digits long";
-                                  }
-                                  return null;
-                                },
+                            //!National ID Field
+                            myTextFormField(
+                              // defaultValue: "01234567891234",
+                              characterLimit: 14,
+                              textController: _nidController,
+                              keyboardType: TextInputType.number,
+                              prefixIcon: const Icon(Icons.person),
+                              label: "National ID",
+                              borderRadius: 10,
+                              validator: (nid) {
+                                if (nid.toString().isEmpty) {
+                                  return "National ID can't be empty!";
+                                } else if (nid.toString().length != 14) {
+                                  return "National ID must be 14 digits long";
+                                }
+                                return null;
+                              },
+                            ),
+                            //! Password Field
+                            myTextFormField(
+                              // defaultValue: "Abc12345",
+                              textController: _passwordController,
+                              keyboardType: TextInputType.text,
+                              prefixIcon: const Icon(Icons.lock),
+                              isPassword: true,
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.remove_red_eye),
+                                onPressed: () {},
                               ),
-                              //! Password Field
-                              myTextFormField(
-                                // defaultValue: "Abc12345",
-                                textController: _passwordController,
-                                keyboardType: TextInputType.text,
-                                prefixIcon: const Icon(Icons.lock),
-                                isPassword: true,
-                                suffixIcon: IconButton(
-                                  icon: const Icon(Icons.remove_red_eye),
-                                  onPressed: () {},
-                                ),
-                                label: "Password",
-                                borderRadius: 10,
-                                validator: (password) {
-                                  if (password.toString().isEmpty) {
-                                    return "Password can't be empty!";
-                                  } else if (!cubit.passwordValidator(
-                                      password.toString())) {
-                                    return "Weak Password. password must contain numerical digit and at least 8 characters long.";
-                                  }
-                                  return null;
-                                },
-                              ),
+                              label: "Password",
+                              borderRadius: 10,
+                              validator: (password) {
+                                if (password.toString().isEmpty) {
+                                  return "Password can't be empty!";
+                                } else if (!cubit
+                                    .passwordValidator(password.toString())) {
+                                  return "Weak Password. password must contain numerical digit and at least 8 characters long.";
+                                }
+                                return null;
+                              },
+                            ),
 
-                              //! Login Button
-                              myElevatedButton(
-                                text: "Login",
-                                onPressed: () async {
-                                  if (formKey.currentState!.validate()) {
-                                    await cubit.login(
-                                      context: buildContext,
-                                      NID: _nidController.text,
-                                      password: _passwordController.text,
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                            //! Login Button
+                            myElevatedButton(
+                              text: "Login",
+                              onPressed: () async {
+                                if (formKey.currentState!.validate()) {
+                                  await cubit.login(
+                                    context: buildContext,
+                                    NID: _nidController.text,
+                                    password: _passwordController.text,
+                                  );
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),

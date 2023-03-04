@@ -1,4 +1,4 @@
-
+import 'package:ecitizen/shared/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +18,7 @@ class HomeLayoutScreen extends StatelessWidget {
 
         return SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: whiteLowOpacity,
             //! Sidebar menu
             // drawer: SafeArea(
             //   child: Drawer(
@@ -115,7 +115,6 @@ class HomeLayoutScreen extends StatelessWidget {
             body: cubit.screens[cubit.currentIndex],
             drawerEdgeDragWidth: 80,
             bottomNavigationBar: BottomNavigationBar(
-              
                 onTap: (value) {
                   cubit.changeIndex(value);
                 },

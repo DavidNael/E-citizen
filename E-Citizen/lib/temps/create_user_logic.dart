@@ -22,7 +22,7 @@ void createUserData({
   required List<dynamic> phoneNumbers,
   required List<dynamic> addresses,
   required List<dynamic> children,
-   double userBalance = -5,
+  double userBalance = -5,
 }) async {
   UserDataModel user = UserDataModel(
     userBalance: userBalance,
@@ -93,7 +93,7 @@ Map<dynamic, dynamic> education = {
       userPrimarySchoolNameField: 'مدرسة الحياة الابتدائية',
       userPrimarySchoolGraduatedField: true,
     },
-    userPreparatorySchooField: {
+    userPreparatorySchoolField: {
       userPreparatorySchoolLevelField: 3,
       userPreparatorySchoolNameField: 'مدرسة الحياة الاعدادية',
       userPreparatorySchoolGraduatedField: true,
@@ -150,10 +150,10 @@ Map<dynamic, dynamic> educationNoData = {
       userPrimarySchoolNameField: '',
       userPrimarySchoolGraduatedField: false,
     },
-    userPreparatorySchooField: {
+    userPreparatorySchoolField: {
       userPreparatorySchoolLevelField: 0,
       userPreparatorySchoolNameField: '',
-      userPreparatorySchoolGraduatedField:false,
+      userPreparatorySchoolGraduatedField: false,
     },
     userSecondarySchoolField: {
       userPrimarySchoolLevelField: 0,

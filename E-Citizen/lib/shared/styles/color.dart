@@ -19,6 +19,7 @@ const Color myGreyColor = Color.fromARGB(255, 75, 75, 75);
 const Color myLightBlue = Color.fromARGB(255, 187, 221, 233);
 const Color myLightBlue2 = Color(0xFFBDCDD6);
 const Color whiteOpacity = Color.fromARGB(50, 255, 255, 255);
+const Color whiteLowOpacity = Color.fromARGB(200, 255, 255, 255);
 const Color greyOpacity = Color.fromARGB(50, 130, 130, 130);
 const Color yellowOpacity = Color.fromARGB(50, 215, 160, 100);
 const Color tileColor = Color.fromARGB(255, 200, 200, 200);
