@@ -27,22 +27,22 @@ class ServicesScreen extends StatelessWidget {
       builder: (context, state) {
         HomeLayoutCubit homeLayoutCubit =
             HomeLayoutCubit.getCubit(buildContext);
-        return Padding(
-          padding: const EdgeInsets.only(
-            top: 25.0,
-            left: 25,
-            right: 25,
-          ),
-          child: GridView.builder(
-            itemCount: services.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisExtent: 150,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 10,
+        return blurEffect(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 25.0,
+              left: 25,
+              right: 25,
             ),
-            itemBuilder: (context, index) {
-              
+            child: GridView.builder(
+              itemCount: services.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisExtent: 150,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
                 return buildService2(
                   serviceName: services[index],
                   serviceImagePath: "",
@@ -50,8 +50,8 @@ class ServicesScreen extends StatelessWidget {
                     homeLayoutCubit.changeIndex(index + 4);
                   },
                 );
-              
-            },
+              },
+            ),
           ),
         );
       },

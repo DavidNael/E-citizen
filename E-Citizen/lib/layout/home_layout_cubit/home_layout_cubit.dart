@@ -2,7 +2,7 @@ import 'package:ecitizen/layout/home_layout_cubit/home_layout_states.dart';
 import 'package:ecitizen/modules/account/account_screen.dart';
 import 'package:ecitizen/modules/home_screen/home_screen.dart';
 import 'package:ecitizen/modules/services/civil_status_services.dart';
-import 'package:ecitizen/modules/services/education_service.dart';
+import 'package:ecitizen/modules/services/education/education_service.dart';
 import 'package:ecitizen/modules/services/health_service.dart';
 import 'package:ecitizen/modules/services/judicial_service.dart';
 import 'package:ecitizen/modules/services/land_property_service.dart';

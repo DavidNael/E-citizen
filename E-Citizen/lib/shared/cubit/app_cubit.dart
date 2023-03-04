@@ -14,6 +14,7 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit getCubit(context) => BlocProvider.of(context);
   UserDataModel? userDataModel;
   UserEducationModel? userEducationModel;
+  //1 Get Data Of User
   Future<UserDataModel?> getUserDataModel({
     required String documentID,
   }) async {
@@ -28,6 +29,7 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
+  //1 Get Educational Data of User
   Future<UserEducationModel?> getUserEducationModel({
     required String documentID,
   }) async {
@@ -40,5 +42,18 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       return null;
     }
+  }
+
+  //1 Get List Of Children Of User
+  Future<List<UserDataModel>> getChildren({
+    required List<String> childrenIDs,
+  }) async {
+    final childrenData = await FirebaseFirestore.instance
+        .collection('users')
+        .where(userNationalIDField, whereIn: childrenIDs)
+        .get();
+    return childrenData.docs
+        .map((doc) => UserDataModel.fromSnapshot(doc))
+        .toList();
   }
 }

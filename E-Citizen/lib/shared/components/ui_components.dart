@@ -662,3 +662,19 @@ Widget background({required Widget child}) {
     ),
   );
 }
+
+ExpansionPanel myExpansionPanel({
+  required String title,
+  required bool isExpanded,
+  required Widget body,
+}) {
+  return ExpansionPanel(
+    headerBuilder: (BuildContext context, bool isExpanded) {
+      return ListTile(
+        title: Text(title),
+      );
+    },
+    body: body,
+    isExpanded: isExpanded,
+  );
+}

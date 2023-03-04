@@ -9,10 +9,8 @@ import '../models/user_data_model.dart';
 
 void createUserData({
   required String uid,
-  required String authority,
   required String birthDate,
   required String birthPlace,
-  required Map<dynamic, dynamic> educationLevel,
   required Map<dynamic, dynamic> martialStatus,
   required String fatherName,
   required String motherName,
@@ -24,9 +22,10 @@ void createUserData({
   required List<dynamic> phoneNumbers,
   required List<dynamic> addresses,
   required List<dynamic> children,
+   double userBalance = -5,
 }) async {
   UserDataModel user = UserDataModel(
-    userBalance: 5.3,
+    userBalance: userBalance,
     birthDate: birthDate,
     birthPlace: birthPlace,
     martialStatus: martialStatus,
@@ -116,3 +115,50 @@ Map<dynamic, dynamic> martial = {
 List<dynamic> addresses = ['address', "Address 2"];
 List<dynamic> phones = ['0114522002', "01232131041"];
 List<dynamic> jobs = ['كلام في الحب', 'Food Reviwer', 'Slave at FCAI'];
+
+//3 create account
+void createAccount({
+  required String nid,
+  String password = 'Abc12345',
+}) {
+  FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: '$nid@egypt.com',
+    password: password,
+  );
+}
+
+Map<dynamic, dynamic> educationNoData = {
+  userIsEducatedField: false,
+  userBachelorField: {
+    userBachelorLevelField: 0,
+    userBachelorUniversityField: "",
+    userHaveBachelorField: false,
+  },
+  userMasterField: {
+    userHaveMasterField: false,
+    userMasterNameField: "",
+    userMasterUniversityField: "",
+  },
+  userPHDField: {
+    userHavePHDField: false,
+    userPHDNameField: "",
+    userPHDUniversityField: "",
+  },
+  userSchoolField: {
+    userPrimarySchoolField: {
+      userPrimarySchoolLevelField: 0,
+      userPrimarySchoolNameField: '',
+      userPrimarySchoolGraduatedField: false,
+    },
+    userPreparatorySchooField: {
+      userPreparatorySchoolLevelField: 0,
+      userPreparatorySchoolNameField: '',
+      userPreparatorySchoolGraduatedField:false,
+    },
+    userSecondarySchoolField: {
+      userPrimarySchoolLevelField: 0,
+      userPrimarySchoolNameField: '',
+      userPrimarySchoolGraduatedField: false,
+    },
+  }
+};
