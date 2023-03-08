@@ -13,7 +13,6 @@ import 'package:ecitizen/modules/services/social_service.dart';
 import 'package:ecitizen/modules/services/taxation_service.dart';
 import 'package:ecitizen/modules/services/vehicle_service.dart';
 import 'package:ecitizen/modules/settings/settings_screen.dart';
-import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +23,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   int currentIndex = 0;
   List<Widget> screens = [
-    HomeScreen(),
+    const HomeScreen(),
     ServicesScreen(),
     const SettingsScreen(),
     const AccountScreen(),

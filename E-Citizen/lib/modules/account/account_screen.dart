@@ -15,9 +15,7 @@ class AccountScreen extends StatelessWidget {
     BuildContext buildContext = context;
 
     return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final user = AppCubit.getCubit(buildContext).userDataModel!;
         final education = AppCubit.getCubit(buildContext).userEducationModel!;
@@ -61,7 +59,7 @@ class AccountScreen extends StatelessWidget {
                               // radius: 60,
                               child: Center(
                                 child: Text(
-                                  user.firstName[0],
+                                  user.fullName[0],
                                   style: const TextStyle(
                                     fontSize: 45,
                                     color: Colors.white,
@@ -74,7 +72,7 @@ class AccountScreen extends StatelessWidget {
                         //1 Name
                         Center(
                           child: myTitle(
-                            title: user.firstName,
+                            title: user.fullName,
                             fontSize: 25,
                             maxLines: 3,
                             isBold: true,
@@ -106,7 +104,7 @@ class AccountScreen extends StatelessWidget {
                             textController: TextEditingController(),
                             label: "Name",
                             borderRadius: 10,
-                            defaultValue: user.firstName,
+                            defaultValue: user.fullName,
                             isEnabled: false,
                           ),
                         ),
@@ -250,7 +248,7 @@ class AccountScreen extends StatelessWidget {
                             children: [],
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         myExpansionTile(title: "Health", children: [
@@ -363,7 +361,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
 

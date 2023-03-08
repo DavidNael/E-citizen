@@ -1,5 +1,3 @@
-import '../../models/user_data_model.dart';
-
 /// User Collection
 // Other
 const String userIDField = 'user_id';
@@ -21,10 +19,10 @@ const String userMarriedField = 'married';
 const String userDivorcedField = 'divorced';
 
 // Names
-const String userFirstNameField = 'first_name';
-const String userLastNameField = 'last_name';
+const String userFullNameField = 'full_name';
 const String userFatherNameField = 'father_name';
 const String userMotherNameField = 'mother_name';
+
 const String userChildren = 'user_children';
 
 /// Education Collection
@@ -70,5 +68,3 @@ const String userPHDField = 'phd';
 const String userHavePHDField = 'have_phd';
 const String userPHDNameField = 'phd_name';
 const String userPHDUniversityField = 'phd_university';
-
-// late final UserDataModel user;

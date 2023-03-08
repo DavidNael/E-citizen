@@ -17,6 +17,7 @@ class EducationService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BuildContext buildContext = context;
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -46,21 +47,55 @@ class EducationService extends StatelessWidget {
                       child: myExpansionTile(
                         title: "School",
                         children: [
+                          //7 Apply For School
                           settingTileWidget(
                             title: "Apply For School",
-                            onTap: () {},
+                            onTap: () {
+                              myShowDialog(
+                                context: buildContext,
+                                title: "Apply For School",
+                                content:
+                                    "Your Apply For School Request Has Been Successfully Sent",
+                              );
+                            },
                             icon: Icons.school,
                           ),
+
+                          //7 Apply For School - Children
+                          settingTileWidget(
+                            title: "Apply For School For Your Children",
+                            onTap: () {
+                              myShowDialog2(
+                                context: buildContext,
+                                title: "",
+                                content: Text("Hello"), 
+                                // showNotEducatedChildren(
+                                //   children: educationCubit.notEducatedChildren,
+                                //   buildContext: buildContext,
+                                // ),
+                              );
+                            },
+                            icon: Icons.school,
+                          ),
+                          //7 Change School
                           settingTileWidget(
                             title: "Change School",
                             onTap: () {},
                             icon: Icons.school,
                           ),
+                          //7 Change School
+                          settingTileWidget(
+                            title: "Change School",
+                            onTap: () {},
+                            icon: Icons.school,
+                          ),
+                          //7 Pay School
                           settingTileWidget(
                             title: "Pay School Payment",
                             onTap: () {},
                             icon: Icons.money_rounded,
                           ),
+                          //7 Show Year Grades
                           settingTileWidget(
                             title: "Show Year Grades",
                             onTap: () {},
@@ -69,6 +104,7 @@ class EducationService extends StatelessWidget {
                         ],
                       ),
                     ),
+
                     //2 University
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -104,6 +140,7 @@ class EducationService extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     //3 PHD
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
@@ -139,6 +176,7 @@ class EducationService extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     //4 Master
                     Container(
                       decoration: BoxDecoration(boxShadow: [

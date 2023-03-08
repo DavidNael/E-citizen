@@ -7,13 +7,12 @@ class UserDataModel {
   String userID = '';
   String birthDate = '';
   String birthPlace = '';
-  double userBalance = 0.0;
+  double balance = 0.0;
   Map<dynamic, dynamic> martialStatus = {};
 
   String fatherName = '';
   String motherName = '';
-  String firstName = '';
-  String lastName = '';
+  String fullName = '';
 
   bool gender = false;
   String nationalID = '';
@@ -25,15 +24,14 @@ class UserDataModel {
 
   //! Constructor
   UserDataModel({
-    required this.userBalance,
+    required this.balance,
     required this.userID,
     required this.birthDate,
     required this.birthPlace,
     required this.martialStatus,
     required this.fatherName,
     required this.motherName,
-    required this.firstName,
-    required this.lastName,
+    required this.fullName,
     required this.gender,
     required this.nationalID,
     required this.jobs,
@@ -44,11 +42,11 @@ class UserDataModel {
 
   UserDataModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+    nationalID = documentSnapshot.data()?[userNationalIDField] as String;
     userID = documentSnapshot.data()?[userIDField] as String;
-    userBalance = documentSnapshot.data()?[userBalanceField].toDouble();
+    balance = documentSnapshot.data()?[userBalanceField].toDouble();
     userDataDocID = documentSnapshot.id;
     gender = documentSnapshot.data()?[userGenderField] as bool;
-    nationalID = documentSnapshot.data()?[userNationalIDField] as String;
     phoneNumbers =
         documentSnapshot.data()?[userPhoneNumbersField] as List<dynamic>;
     jobs = documentSnapshot.data()?[userJobsField] as List<dynamic>;
@@ -60,25 +58,23 @@ class UserDataModel {
         as Map<dynamic, dynamic>;
     fatherName = documentSnapshot.data()?[userFatherNameField] as String;
     motherName = documentSnapshot.data()?[userMotherNameField] as String;
-    firstName = documentSnapshot.data()?[userFirstNameField] as String;
-    lastName = documentSnapshot.data()?[userLastNameField] as String;
+    fullName = documentSnapshot.data()?[userFullNameField] as String;
     children = documentSnapshot.data()?[userChildren] as List<dynamic>;
   }
 
-  // 
+  //
   Map<String, dynamic> toMap() {
     return {
+      userNationalIDField: nationalID,
       userIDField: userID,
-      userBalanceField: userBalance,
+      userBalanceField: balance,
       userBirthDateField: birthDate,
       userBirthPlaceField: birthPlace,
       userMartialStatusField: martialStatus,
       userFatherNameField: fatherName,
       userMotherNameField: motherName,
-      userFirstNameField: firstName,
-      userLastNameField: lastName,
+      userFullNameField: fullName,
       userGenderField: gender,
-      userNationalIDField: nationalID,
       userJobsField: jobs,
       userPhoneNumbersField: phoneNumbers,
       userAddressesField: addresses,

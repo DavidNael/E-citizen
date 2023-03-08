@@ -257,6 +257,54 @@ Future<dynamic> myShowDialog({
   );
 }
 
+// Alert Dialog 2
+Future<dynamic> myShowDialog2({
+  required BuildContext context,
+  required String title,
+  required Widget content,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        scrollable: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        content: SizedBox(
+          height: 200,
+          width: 200,
+          child: content,
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Center(
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+}
+
 // Popup TextFormField
 Future<dynamic> myFormDialog({
   required BuildContext context,
@@ -383,7 +431,7 @@ Future<dynamic> myLoadingDialog({
   );
 }
 
-// todo put icon
+//2 put icon
 // Build Service 2
 Widget buildService2({
   required String serviceName,
@@ -546,6 +594,7 @@ Widget settingTileWidget({
   Color borderColor = backgroundColor,
   VoidCallback? onTap,
   Widget? trailing,
+  bool withIcon = true,
 }) {
   return SizedBox(
     width: width,
@@ -561,15 +610,22 @@ Widget settingTileWidget({
             side: BorderSide(color: borderColor, width: 1),
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          title: iconWidget(
-            title: title,
-            textColor: titleColor,
-            icon: icon,
-            iconColor: iconColor,
-            iconOutlineColor: iconOutlineColor,
-            maxTitleLines: maxTitleLines,
-            disableIcon: disableIcon,
-          ),
+          title: withIcon
+              ? iconWidget(
+                  title: title,
+                  textColor: titleColor,
+                  icon: icon,
+                  iconColor: iconColor,
+                  iconOutlineColor: iconOutlineColor,
+                  maxTitleLines: maxTitleLines,
+                  disableIcon: disableIcon,
+                )
+              : Text(
+                  title,
+                  style: TextStyle(color: textColor),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: maxTitleLines,
+                ),
           subtitle: subtitle != "" ? Text(subtitle) : null,
           onTap: onTap,
           trailing: trailing,
@@ -751,5 +807,52 @@ Widget myExpansionTile({
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius)),
     children: children,
+  );
+}
+
+// My Choose Container
+Future<dynamic> showContainer({
+  required BuildContext context,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        scrollable: true,
+        title: Text("Apply For School"),
+        content: Container(
+          child: Column(
+            children: [
+              Text("Apply for your childeren"),
+              SizedBox(
+                height: 5,
+              ),
+              Text("Apply for you"),
+            ],
+          ),
+        ),
+        actions: [],
+      );
+    },
+  );
+}
+
+Widget showNotEducatedChildren({
+  required List<String> children,
+  required BuildContext buildContext,
+}) {
+  return ListView.separated(
+    itemBuilder: (context, index) => settingTileWidget(
+        withIcon: false,
+        title: children[index],
+        onTap: () {
+          myShowDialog(
+            context: buildContext,
+            title: "Apply Request",
+            content: "Request Has Been Sent Successfully",
+          );
+        }),
+    separatorBuilder: (context, index) => const SizedBox(height: 5),
+    itemCount: children.length,
   );
 }

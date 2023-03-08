@@ -55,6 +55,7 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
+  final logger = Logger();
   Future<void> login({
     // ignore: non_constant_identifier_names
     required String NID,
@@ -73,32 +74,27 @@ class LoginCubit extends Cubit<LoginStates> {
         email: "$NID@egypt.com",
         password: password,
       );
-
       // If Login Success Emit Success State
       appCubit.userDataModel =
-          await appCubit.getUserDataModel(documentID: userCredential.user!.uid);
+          await appCubit.getUserDataModel(uid: userCredential.user!.uid);
 
       appCubit.userEducationModel = await appCubit.getUserEducationModel(
-          documentID: userCredential.user!.uid);
+          nid: appCubit.userDataModel!.nationalID);
 
-      final logger = Logger();
-      logger.w(appCubit.userDataModel?.firstName ?? "Nulllll");
-      logger.w(appCubit.userEducationModel?.userIsEducated ?? "Nulllll");
-      
+      logger.d(appCubit.userDataModel?.fullName ?? "Nulllll");
+      logger.d(appCubit.userEducationModel?.userIsEducated ?? "Nulllll");
+
       emit(LoginSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-
         // Login With Unknown Email/Password
         emit(LoginErrorState(UserNotFoundAuthException()));
       } else if (e.code == 'wrong-password') {
-
         // Login With Known Email But Wrong Password
         emit(LoginErrorState(WrongPasswordAuthException()));
       } else {
-        
         // Unknown Firebase Error
-        print(e.code);
+        logger.d(e.code);
         emit(LoginErrorState(UnknownAuthException()));
       }
     } catch (other) {

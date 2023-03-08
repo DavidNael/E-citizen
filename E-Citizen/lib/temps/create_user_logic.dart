@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/user_data_model.dart';
 
-// final docID = FirebaseAuth.instance.currentUser!.uid;
-
 void createUserData({
   required String uid,
   required String birthDate,
@@ -15,24 +13,22 @@ void createUserData({
   required String fatherName,
   required String motherName,
   required String firstName,
-  required String lastName,
   required bool gender,
   required String nationalID,
   required List<dynamic> jobs,
   required List<dynamic> phoneNumbers,
   required List<dynamic> addresses,
   required List<dynamic> children,
-  double userBalance = -5,
+  double balance = -5,
 }) async {
   UserDataModel user = UserDataModel(
-    userBalance: userBalance,
+    balance: balance,
     birthDate: birthDate,
     birthPlace: birthPlace,
     martialStatus: martialStatus,
     fatherName: fatherName,
     motherName: motherName,
-    firstName: firstName,
-    lastName: lastName,
+    fullName: firstName,
     gender: gender,
     nationalID: nationalID,
     jobs: jobs,
@@ -44,12 +40,12 @@ void createUserData({
 
   await FirebaseFirestore.instance
       .collection('users')
-      .doc(uid)
+      .doc(nationalID)
       .set(user.toMap());
 }
 
 void createUserEducation({
-  required String uid,
+  required String nationalID,
   required bool userIsEducated,
   required Map<dynamic, dynamic> userSchool,
   required Map<dynamic, dynamic> userBachelor,
@@ -65,28 +61,15 @@ void createUserEducation({
   );
 
   await FirebaseFirestore.instance
+      .collection('users')
+      .doc(nationalID)
       .collection('education')
-      .doc(uid)
+      .doc(nationalID)
       .set(userEducationModel.toMap());
 }
 
 Map<dynamic, dynamic> education = {
   userIsEducatedField: true,
-  userBachelorField: {
-    userBachelorLevelField: 0,
-    userBachelorUniversityField: "Cairo",
-    userHaveBachelorField: true,
-  },
-  userMasterField: {
-    userHaveMasterField: true,
-    userMasterNameField: "Bio Informatics",
-    userMasterUniversityField: "Cairo",
-  },
-  userPHDField: {
-    userHavePHDField: true,
-    userPHDNameField: "Bio Infomatics",
-    userPHDUniversityField: "Cairo",
-  },
   userSchoolField: {
     userPrimarySchoolField: {
       userPrimarySchoolLevelField: 6,
@@ -103,7 +86,22 @@ Map<dynamic, dynamic> education = {
       userPrimarySchoolNameField: 'مدرسة الحياة الثانوية بنين',
       userPrimarySchoolGraduatedField: true,
     },
-  }
+  },
+  userBachelorField: {
+    userBachelorLevelField: 0,
+    userBachelorUniversityField: "Cairo",
+    userHaveBachelorField: true,
+  },
+  userMasterField: {
+    userHaveMasterField: true,
+    userMasterNameField: "Bio Informatics",
+    userMasterUniversityField: "Cairo",
+  },
+  userPHDField: {
+    userHavePHDField: true,
+    userPHDNameField: "Bio Infomatics",
+    userPHDUniversityField: "Cairo",
+  },
 };
 
 Map<dynamic, dynamic> martial = {
@@ -162,3 +160,12 @@ Map<dynamic, dynamic> educationNoData = {
     },
   }
 };
+
+// void tme() {
+//   FirebaseFirestore.instance
+//       .collection('users')
+//       .doc(userID)
+//       .collection(newName)
+//       .doc(userID)
+//       .set(modelName.toMap());
+// }

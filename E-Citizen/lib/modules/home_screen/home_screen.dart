@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                                 // radius: 60,
                                 child: Center(
                                   child: Text(
-                                    user.firstName[0],
+                                    user.fullName[0],
                                     style: const TextStyle(
                                       fontSize: 45,
                                       color: Colors.white,
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                             //!Name
                             Expanded(
                               child: myTitle(
-                                title: user.firstName,
+                                title: user.fullName,
                                 fontSize: 25,
                                 maxLines: 3,
                                 isBold: true,
@@ -131,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                                 title: "Balance :",
                               ),
                               myTitle(
-                                title: "${user.userBalance}",
+                                title: "${user.balance}",
                               ),
                             ],
                           ),

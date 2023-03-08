@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecitizen/shared/components/constants.dart';
 
 class UserEducationModel {
-  String? eduDocID;
   bool userIsEducated = false;
   Map<dynamic, dynamic> userSchool = {};
   Map<dynamic, dynamic> userBachelor = {};
@@ -22,7 +21,6 @@ class UserEducationModel {
   // Named Constructor
   UserEducationModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
-    eduDocID = documentSnapshot.id;
     userIsEducated = documentSnapshot.data()?[userIsEducatedField] as bool;
     userSchool =
         documentSnapshot.data()?[userSchoolField] as Map<dynamic, dynamic>;
@@ -36,7 +34,7 @@ class UserEducationModel {
   /// Set Data To Firebase
   Map<String, dynamic> toMap() {
     return {
-      userIDField: eduDocID,
+      userIsEducatedField: userIsEducated,
       userSchoolField: userSchool,
       userBachelorField: userBachelor,
       userPHDField: userPHD,

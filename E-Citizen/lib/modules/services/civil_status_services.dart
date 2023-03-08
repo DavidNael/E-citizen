@@ -1,7 +1,5 @@
 import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class CivilStatusService extends StatelessWidget {
   const CivilStatusService({super.key});
