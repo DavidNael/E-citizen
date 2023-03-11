@@ -4,6 +4,7 @@ import 'package:ecitizen/shared/components/ui_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class ServicesScreen extends StatelessWidget {
   ServicesScreen({super.key});
 

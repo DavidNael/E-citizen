@@ -18,7 +18,7 @@ ThemeData lightTheme() {
       ),
 
       elevation: 5,
-      backgroundColor: myYellow1,
+      backgroundColor: myBlueMaterial,
       iconTheme: IconThemeData(
         color: Colors.black,
       ),
@@ -39,7 +39,7 @@ ThemeData lightTheme() {
     ),
 
     // control TextFormField
-    
+
     // control body
     primaryColor: Colors.black,
     primarySwatch: myBlueMaterial,
@@ -54,7 +54,6 @@ ThemeData lightTheme() {
 
     // control bottom navbar
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      
       elevation: 20,
       selectedItemColor: myBlueColor,
       type: BottomNavigationBarType.fixed,

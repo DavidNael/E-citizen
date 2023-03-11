@@ -1,20 +1,19 @@
-import 'package:ecitizen/models/user_data_model.dart';
-import 'package:ecitizen/models/user_education_model.dart';
+import 'package:ecitizen/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../shared/components/ui_components.dart';
 import '../../../shared/cubit/app_cubit.dart';
 import '../../../shared/cubit/app_states.dart';
-import '../../../shared/styles/color.dart';
-import '../../login/login_cubit/login_cubit.dart';
-import '../../login/login_cubit/login_states.dart';
+import '../../education_ministry.dart';
 import 'education_cubit/education_cubit.dart';
 import 'education_cubit/education_states.dart';
 
+// ignore: must_be_immutable
 class EducationService extends StatelessWidget {
-  const EducationService({super.key});
+  TextEditingController schoolNameContoleer = TextEditingController();
+  TextEditingController visaCardContoller = TextEditingController();
 
+  EducationService({super.key});
   @override
   Widget build(BuildContext context) {
     final BuildContext buildContext = context;
@@ -22,7 +21,6 @@ class EducationService extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         AppCubit appCubit = AppCubit.getCubit(context);
-        final userDataModel = appCubit.userDataModel!;
         final userEducationModel = appCubit.userEducationModel!;
         return BlocConsumer<EducationCubit, EducationStates>(
           listener: (context, state) {},
@@ -48,59 +46,250 @@ class EducationService extends StatelessWidget {
                         title: "School",
                         children: [
                           //7 Apply For School
-                          settingTileWidget(
-                            title: "Apply For School",
-                            onTap: () {
-                              myShowDialog(
-                                context: buildContext,
-                                title: "Apply For School",
-                                content:
-                                    "Your Apply For School Request Has Been Successfully Sent",
-                              );
-                            },
-                            icon: Icons.school,
-                          ),
+                          userEducationModel.userIsEducated == false
+                              ? settingTileWidget(
+                                  title: "Apply for school",
+                                  onTap: () {
+                                    myFormDialog2(
+                                      context: context,
+                                      textController: schoolNameContoleer,
+                                      keyboardType: TextInputType.text,
+                                      label: "Enter school name",
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "School name must not be empty!";
+                                        }
+                                        return null;
+                                      },
+                                      okWidget: () {
+                                        myShowDialog(
+                                          context: context,
+                                          title: "Apply for school",
+                                          content: "Successful request",
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: Icons.school,
+                                )
+                              : const SizedBox.shrink(),
 
                           //7 Apply For School - Children
-                          settingTileWidget(
-                            title: "Apply For School For Your Children",
-                            onTap: () {
-                              myShowDialog2(
-                                context: buildContext,
-                                title: "",
-                                content: Text("Hello"), 
-                                // showNotEducatedChildren(
-                                //   children: educationCubit.notEducatedChildren,
-                                //   buildContext: buildContext,
-                                // ),
-                              );
-                            },
-                            icon: Icons.school,
-                          ),
+                          educationCubit.notEducatedChildren.isNotEmpty
+                              ? settingTileWidget(
+                                  title: "Apply for school for your children",
+                                  onTap: () {
+                                    // Show children names
+                                    // ignore: use_build_context_synchronously
+                                    myShowDialog2(
+                                      context: buildContext,
+                                      title: "",
+                                      content: ListView.separated(
+                                        itemBuilder: (context, index) =>
+                                            TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+
+                                            // Enter school name
+                                            myFormDialog2(
+                                              context: buildContext,
+                                              textController:
+                                                  schoolNameContoleer,
+                                              keyboardType: TextInputType.text,
+                                              label: "Enter school name",
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return "School name must not be empty!";
+                                                }
+                                                return null;
+                                              },
+                                              okWidget:
+                                                  // ignore: use_build_context_synchronously
+                                                  () {
+                                                myShowDialog(
+                                                  context: buildContext,
+                                                  title: "",
+                                                  content:
+                                                      "Request sent successfully!",
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Text(
+                                            educationCubit
+                                                .notEducatedChildren[index],
+                                          ),
+                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(height: 5),
+                                        itemCount: educationCubit
+                                            .notEducatedChildren.length,
+                                      ),
+                                    );
+                                    // ignore: use_build_context_synchronously
+                                  },
+                                  icon: Icons.school,
+                                )
+                              : const SizedBox.shrink(),
+
                           //7 Change School
-                          settingTileWidget(
-                            title: "Change School",
-                            onTap: () {},
-                            icon: Icons.school,
-                          ),
-                          //7 Change School
-                          settingTileWidget(
-                            title: "Change School",
-                            onTap: () {},
-                            icon: Icons.school,
-                          ),
+                          userEducationModel.userIsEducated &&
+                                  userEducationModel.userSchool[
+                                          userSecondarySchoolGraduatedField] ==
+                                      false
+                              ? settingTileWidget(
+                                  title: "Change School",
+                                  onTap: () {},
+                                  icon: Icons.school,
+                                )
+                              : const SizedBox.shrink(),
+
+                          //7 Change School - Children
+                          educationCubit.educatedChildren.isNotEmpty
+                              ? settingTileWidget(
+                                  title: "Change school for you children",
+                                  onTap: () {
+                                    // Show children names
+                                    // ignore: use_build_context_synchronously
+                                    myShowDialog2(
+                                      context: buildContext,
+                                      title: "",
+                                      content: ListView.separated(
+                                        itemBuilder: (context, index) =>
+                                            TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+
+                                            // Enter school name
+                                            myFormDialog2(
+                                              context: buildContext,
+                                              textController:
+                                                  schoolNameContoleer,
+                                              keyboardType: TextInputType.text,
+                                              label: "Enter school name",
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return "School name must not be empty!";
+                                                }
+                                                return null;
+                                              },
+                                              okWidget: () {
+                                                myShowDialog(
+                                                  context: buildContext,
+                                                  title: "",
+                                                  content:
+                                                      "Request sent successfully!",
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Text(
+                                            educationCubit
+                                                .educatedChildren[index],
+                                          ),
+                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(height: 5),
+                                        itemCount: educationCubit
+                                            .educatedChildren.length,
+                                      ),
+                                    );
+                                    // ignore: use_build_context_synchronously
+                                  },
+                                  icon: Icons.school,
+                                )
+                              : const SizedBox.shrink(),
+
                           //7 Pay School
                           settingTileWidget(
-                            title: "Pay School Payment",
-                            onTap: () {},
+                            title: "School payment",
+                            onTap: () {
+                              paymentWidget(
+                                  buildContext: buildContext,
+                                  visaCardContoller: visaCardContoller,
+                                  context: context);
+                            },
                             icon: Icons.money_rounded,
                           ),
                           //7 Show Year Grades
-                          settingTileWidget(
-                            title: "Show Year Grades",
-                            onTap: () {},
-                            icon: Icons.document_scanner,
-                          ),
+                          userEducationModel.userSchool[
+                                              userPreparatorySchoolField]
+                                          [userPreparatorySchoolLevelField] ==
+                                      3 ||
+                                  userEducationModel.userSchool[
+                                              userPreparatorySchoolField]
+                                          [userSecondarySchoolLevelField] ==
+                                      3
+                              ? settingTileWidget(
+                                  title: "Show year grades",
+                                  onTap: () {
+                                    Navigator.push(
+                                      buildContext,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const EducationMinistryWebView(
+                                          "https://moe.gov.eg/",
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  icon: Icons.document_scanner,
+                                )
+                              : const SizedBox.shrink(),
+                          //7 Request enrollment certificate
+                          userEducationModel
+                                          .userSchool[userSecondarySchoolField]
+                                      [userSecondarySchoolLevelField] <=
+                                  3
+                              ? settingTileWidget(
+                                  title: "Request enrollment certificate",
+                                  onTap: () {
+                                    paymentWidget(
+                                      buildContext: buildContext,
+                                      visaCardContoller: visaCardContoller,
+                                      context: context,
+                                    );
+                                  },
+                                  icon: Icons.description_sharp)
+                              : const SizedBox.shrink(),
+                          //7 Request enrollment certificate - children
+                          educationCubit.educatedChildren.isNotEmpty
+                              ? settingTileWidget(
+                                  title:
+                                      "Request enrollment certificate for your children",
+                                  onTap: () {
+                                    myShowDialog2(
+                                      context: buildContext,
+                                      title: "",
+                                      content: ListView.separated(
+                                        itemBuilder: (context, index) =>
+                                            TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+
+                                            // Enter payment method
+                                            paymentWidget(
+                                              popWidget: true,
+                                              buildContext: context,
+                                              visaCardContoller:
+                                                  visaCardContoller,
+                                              context: context,
+                                            );
+                                          },
+                                          child: Text(
+                                            educationCubit
+                                                .educatedChildren[index],
+                                          ),
+                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(height: 5),
+                                        itemCount: educationCubit
+                                            .educatedChildren.length,
+                                      ),
+                                    );
+                                  },
+                                  icon: Icons.description_sharp)
+                              : const SizedBox.shrink(),
                         ],
                       ),
                     ),
@@ -122,17 +311,41 @@ class EducationService extends StatelessWidget {
                           children: [
                             Column(
                               children: [
+                                //7 Apply for university
+                                userEducationModel.userBachelor[
+                                            userHaveBachelorField] ==
+                                        false
+                                    ? settingTileWidget(
+                                        title: "Apply for university",
+                                      )
+                                    : const SizedBox.shrink(),
+
+                                //7 Change university
+                                userEducationModel.userBachelor[
+                                                userHaveBachelorField] ==
+                                            false &&
+                                        userEducationModel.userBachelor[
+                                                userBachelorLevelField] >
+                                            0
+                                    ? settingTileWidget(
+                                        title: "Change university",
+                                        icon: Icons.school_rounded,
+                                      )
+                                    : const SizedBox.shrink(),
+
+                                //7 Pay university bills
                                 settingTileWidget(
-                                  title: "Apply For School",
+                                  title: "Pay bills",
+                                  onTap: () {},
+                                  icon: Icons.money_rounded,
                                 ),
+
+                                //7 Request enrollment certificate
                                 settingTileWidget(
-                                  title: "Change School",
-                                ),
-                                settingTileWidget(
-                                  title: "Service",
-                                ),
-                                settingTileWidget(
-                                  title: "Service",
+                                  title: "Request enrollment certificate",
+                                  //8 should pay for request
+                                  onTap: () {},
+                                  icon: Icons.description_sharp,
                                 ),
                               ],
                             ),
@@ -211,31 +424,6 @@ class EducationService extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                //1 Old Expansion Panel
-                //  ExpansionPanelList(
-
-                //   expansionCallback: (int index, bool isExpanded) {
-                //     educationCubit.updateIsOpenList(
-                //         index: index, isExpanded: !isExpanded);
-                //   },
-                //   children: [
-                //     myExpansionPanel(
-                //       title: "School",
-                //       isExpanded: educationCubit.isOpenList[0],
-                //       body: Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: Column(
-                //           children: [
-                //             settingTileWidget(),
-                //             settingTileWidget(),
-                //             settingTileWidget(),
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
               ),
             );
           },

@@ -82,9 +82,9 @@ Map<dynamic, dynamic> education = {
       userPreparatorySchoolGraduatedField: true,
     },
     userSecondarySchoolField: {
-      userPrimarySchoolLevelField: 6,
-      userPrimarySchoolNameField: 'مدرسة الحياة الثانوية بنين',
-      userPrimarySchoolGraduatedField: true,
+      userSecondarySchoolLevelField: 3,
+      userSecondarySchoolNameField: 'مدرسة الحياة الثانوية بنين',
+      userSecondarySchoolGraduatedField: true,
     },
   },
   userBachelorField: {
@@ -161,11 +161,55 @@ Map<dynamic, dynamic> educationNoData = {
   }
 };
 
-// void tme() {
-//   FirebaseFirestore.instance
-//       .collection('users')
-//       .doc(userID)
-//       .collection(newName)
-//       .doc(userID)
-//       .set(modelName.toMap());
-// }
+
+List<String> usersNIDs = [
+  "00000000000000",
+  "11111111111111",
+  "22222222222222",
+  "33333333333333",
+  "44444444444444",
+  "55555555555555",
+];
+
+List<String> usersIDs = [
+  "Tw9WakIsm5RobCMpawBXQUK8ikc2",
+  "CliQ8We6z6YOqwX9F1YfmObVLyw2",
+  "FC5tC7fvGgaOFe75CWXRXGRqS4q2",
+  "w4WpwQ4lCAehSlr1ZxDLMmZ7CL43",
+  "inQ3TyN0RJVHAQ4NSeDwsid91q63",
+  "xB0aLWAgwcYV37J6bOCHmzcIanZ2",
+];
+
+void myCreate({
+  required int i,
+  required List<String> children,
+}) {
+  createUserData(
+    uid: usersIDs[i],
+    birthDate: "10-10-2002",
+    birthPlace: "Tanta",
+    martialStatus: martial,
+    fatherName: "FATHER",
+    motherName: "MOTHER",
+    firstName: 'FULL NAME',
+    gender: true,
+    nationalID: usersNIDs[i],
+    jobs: jobs,
+    phoneNumbers: phones,
+    addresses: addresses,
+    children: children,
+  );
+}
+
+myCreateEdu({
+  required int i,
+}) {
+  createUserEducation(
+    nationalID: usersNIDs[i],
+    userIsEducated: true,
+    userSchool: education[userSchoolField],
+    userBachelor: education[userBachelorField],
+    userPHD: education[userPHDField],
+    userMaster: education[userMasterField],
+  );
+}

@@ -10,18 +10,19 @@ class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
 
   static AppCubit getCubit(context) => BlocProvider.of(context);
+
   UserDataModel? userDataModel;
   UserEducationModel? userEducationModel;
 
   //1 Get Data Of User
   Future<UserDataModel?> getUserDataModel({
     // documentID is the national ID of the user
-    required String uid,
+    required String nid,
   }) async {
-    //3 snapshot is all documents where userIDField = uid
+    // snapshot is all documents where userIDField = uid
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where(userIDField, isEqualTo: uid)
+        .where(userNationalIDField, isEqualTo: nid)
         .get();
     if (snapshot.docs.isNotEmpty) {
       return UserDataModel.fromSnapshot(snapshot.docs.first);
@@ -48,18 +49,12 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   //1 Get List Of Children Of User
-  // Future<List<UserDataModel>> getChildren({
-  //   required List<dynamic> childrenIDs,
-  // }) async {
-  //   final childrenData = await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(docID)
-  //       .collection(newname)
-  //       .doc(docID)
-  //       .where(userNationalIDField, whereIn: childrenIDs)
-  //       .get();
-  //   return childrenData.docs
-  //       .map((doc) => UserDataModel.fromSnapshot(doc))
-  //       .toList();
-  // }
+  Future<List<dynamic>> getChildren({
+    required String userNID,
+  }) async {
+    final userDocument =
+        await FirebaseFirestore.instance.collection('users').doc(userNID).get();
+    UserDataModel user = UserDataModel.fromSnapshot(userDocument);
+    return user.children;
+  }
 }

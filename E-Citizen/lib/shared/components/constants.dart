@@ -1,3 +1,4 @@
+
 /// User Collection
 // Other
 const String userIDField = 'user_id';
@@ -68,3 +69,5 @@ const String userPHDField = 'phd';
 const String userHavePHDField = 'have_phd';
 const String userPHDNameField = 'phd_name';
 const String userPHDUniversityField = 'phd_university';
+
+// AppCubit appCubit = AppCubit.getCubit(context);

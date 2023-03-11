@@ -13,7 +13,7 @@ import 'login_cubit/login_states.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final TextEditingController _nidController =
-      TextEditingController(text: '01234567891234');
+      TextEditingController(text: '00000000000000');
   final TextEditingController _passwordController =
       TextEditingController(text: 'Abc12345');
   final formKey = GlobalKey<FormState>();

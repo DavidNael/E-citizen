@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
             );
           },
           separatorBuilder: (context, index) {
-            return SizedBox(
+            return const SizedBox(
               height: 20,
             );
           },

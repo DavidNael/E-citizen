@@ -28,7 +28,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     const SettingsScreen(),
     const AccountScreen(),
     const CivilStatusService(),
-    const EducationService(),
+    EducationService(),
     const HealthServices(),
     const JudicialServices(),
     const LandPropertyServices(),

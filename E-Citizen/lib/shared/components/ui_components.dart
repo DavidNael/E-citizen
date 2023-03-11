@@ -214,6 +214,7 @@ Future<dynamic> myShowDialog({
   required BuildContext context,
   required String title,
   required String content,
+  VoidCallback? onPressed,
 }) {
   return showDialog(
     context: context,
@@ -241,6 +242,7 @@ Future<dynamic> myShowDialog({
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  onPressed!();
                 },
                 child: const Center(
                   child: Text(
@@ -260,7 +262,7 @@ Future<dynamic> myShowDialog({
 // Alert Dialog 2
 Future<dynamic> myShowDialog2({
   required BuildContext context,
-  required String title,
+  String title = "",
   required Widget content,
 }) {
   return showDialog(
@@ -278,8 +280,8 @@ Future<dynamic> myShowDialog2({
           ),
         ),
         content: SizedBox(
-          height: 200,
-          width: 200,
+          height: 100,
+          width: 0,
           child: content,
         ),
         actions: [
@@ -306,7 +308,7 @@ Future<dynamic> myShowDialog2({
 }
 
 // Popup TextFormField
-Future<dynamic> myFormDialog({
+Future myFormDialog({
   required BuildContext context,
   required String title,
   required String successTitle,
@@ -398,6 +400,112 @@ Future<dynamic> myFormDialog({
   );
 }
 
+Future<dynamic> myFormDialog2({
+  required BuildContext context,
+  String title = " ",
+  String successTitle = "Successful request",
+  required TextEditingController textController,
+  required TextInputType keyboardType,
+  bool isPassword = false,
+  Icon? prefixIcon,
+  IconButton? suffixIcon,
+  required String label,
+  required Function(String?) validator,
+  Function(String value)? myOnFieldSubmitted,
+  Function(String value)? myOnChanged,
+  VoidCallback? myOnTap,
+  double borderRadius = 25.0,
+  double width = double.infinity,
+  double padding = 10,
+  int characterLimit = 99,
+  String? defaultValue,
+  VoidCallback? okWidget,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      final formKey = GlobalKey<FormState>();
+      // final nidController = TextEditingController();
+      return AlertDialog(
+        scrollable: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        // backgroundColor: isDarkMode ? darkBorderTheme : lightBorderTheme,
+        title: Text(
+          title,
+          style: const TextStyle(
+              // color: isDarkMode ? darkTextTheme : lightTextTheme,
+              ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Form(
+              key: formKey,
+              child: myTextFormField(
+                textController: textController,
+                keyboardType: keyboardType,
+                label: label,
+                validator: validator,
+                borderRadius: borderRadius,
+                characterLimit: characterLimit,
+                isPassword: isPassword,
+                myOnChanged: myOnChanged,
+                myOnTap: myOnTap,
+                myOnFieldSubmitted: myOnFieldSubmitted,
+                padding: padding,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                width: width,
+                defaultValue: defaultValue,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //6 Cancel Button
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                        // color: isDarkMode ? darkTextTheme : lightTextTheme,
+                        ),
+                  ),
+                ),
+
+                //6 OK Button
+                TextButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      Navigator.pop(context);
+                      okWidget!();
+                    }
+                  },
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(
+                        // color: isDarkMode ? darkTextTheme : lightTextTheme,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      );
+    },
+  );
+}
+
 // Loading Dialog
 Future<dynamic> myLoadingDialog({
   required BuildContext context,
@@ -449,7 +557,7 @@ Widget buildService2({
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 4,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -622,7 +730,7 @@ Widget settingTileWidget({
                 )
               : Text(
                   title,
-                  style: TextStyle(color: textColor),
+                  style: const TextStyle(color: textColor),
                   overflow: TextOverflow.ellipsis,
                   maxLines: maxTitleLines,
                 ),
@@ -819,40 +927,89 @@ Future<dynamic> showContainer({
     builder: (context) {
       return AlertDialog(
         scrollable: true,
-        title: Text("Apply For School"),
-        content: Container(
-          child: Column(
-            children: [
-              Text("Apply for your childeren"),
-              SizedBox(
-                height: 5,
-              ),
-              Text("Apply for you"),
-            ],
-          ),
+        title: const Text("Apply For School"),
+        content: Column(
+          children: const [
+            Text("Apply for your childeren"),
+            SizedBox(
+              height: 5,
+            ),
+            Text("Apply for you"),
+          ],
         ),
-        actions: [],
+        actions: const [],
       );
     },
   );
 }
 
-Widget showNotEducatedChildren({
-  required List<String> children,
+// Payment widget
+Future paymentWidget({
   required BuildContext buildContext,
+  required TextEditingController visaCardContoller,
+  required BuildContext context,
+  bool popWidget = true,
 }) {
-  return ListView.separated(
-    itemBuilder: (context, index) => settingTileWidget(
-        withIcon: false,
-        title: children[index],
-        onTap: () {
-          myShowDialog(
-            context: buildContext,
-            title: "Apply Request",
-            content: "Request Has Been Sent Successfully",
-          );
-        }),
-    separatorBuilder: (context, index) => const SizedBox(height: 5),
-    itemCount: children.length,
+  List<dynamic> paymentList = [
+    //4 Balance
+    // ignore: use_build_context_synchronously
+    TextButton(
+      onPressed: () {
+        popWidget ? Navigator.pop(context) : null;
+        
+        // condition is here
+        myShowDialog(
+          context: buildContext,
+          title: "",
+          content: "Paid successfully!",
+        );
+      },
+      child: const Text(
+        "Pay using your wallet",
+      ),
+    ),
+
+    //4 Visa card
+    // ignore: use_build_context_synchronously
+    TextButton(
+      onPressed: () {
+        popWidget ? Navigator.pop(context) : null;
+        // Enter school name
+        myFormDialog2(
+          context: buildContext,
+          textController: visaCardContoller,
+          keyboardType: TextInputType.number,
+          label: "Enter your credit card number",
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Credit card number must not be empty!";
+            }
+            return null;
+          },
+          okWidget:
+              // ignore: use_build_context_synchronously
+              () {
+            myShowDialog(
+              context: buildContext,
+              title: "",
+              content: "Paid successfully!",
+            );
+          },
+        );
+      },
+      child: const Text(
+        "Pay using your credit",
+      ),
+    ),
+  ];
+
+  return myShowDialog2(
+    context: buildContext,
+    content: ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => paymentList[index],
+      separatorBuilder: (context, index) => const SizedBox(height: 5),
+      itemCount: paymentList.length,
+    ),
   );
 }

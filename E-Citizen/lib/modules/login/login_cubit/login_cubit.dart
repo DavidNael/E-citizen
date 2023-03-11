@@ -1,6 +1,9 @@
-import 'package:ecitizen/models/user_education_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecitizen/modules/services/education/education_cubit/education_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
+import '../../../models/user_data_model.dart';
+import '../../../shared/components/constants.dart';
 import '../../../shared/cubit/app_cubit.dart';
 import '../../../shared/cubit/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,6 +58,22 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
+  //1 Get Data Of User For Login
+  Future<UserDataModel?> getUserDataModelForLogin({
+    required String uid,
+  }) async {
+    // snapshot is all documents where userIDField = uid
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where(userIDField, isEqualTo: uid)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      return UserDataModel.fromSnapshot(snapshot.docs.first);
+    } else {
+      return null;
+    }
+  }
+
   final logger = Logger();
   Future<void> login({
     // ignore: non_constant_identifier_names
@@ -68,22 +87,33 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(LoginInitialState());
 
       AppCubit appCubit = AppCubit.getCubit(context);
-
+      EducationCubit educationCubit = EducationCubit.getEducationCubit(context);
       final userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: "$NID@egypt.com",
         password: password,
       );
-      // If Login Success Emit Success State
-      appCubit.userDataModel =
-          await appCubit.getUserDataModel(uid: userCredential.user!.uid);
 
+      // Fill
+      appCubit.userDataModel =
+          await getUserDataModelForLogin(uid: userCredential.user!.uid);
+      
+      
       appCubit.userEducationModel = await appCubit.getUserEducationModel(
           nid: appCubit.userDataModel!.nationalID);
 
-      logger.d(appCubit.userDataModel?.fullName ?? "Nulllll");
-      logger.d(appCubit.userEducationModel?.userIsEducated ?? "Nulllll");
+      
+      educationCubit.getEducatedChildren(
+        nid: appCubit.userDataModel!.nationalID,
+        context: context,
+      );
 
+      educationCubit.getNotEducatedChildren(
+        nid: appCubit.userDataModel!.nationalID,
+        context: context,
+      );
+
+      // If Login Success Emit Success State
       emit(LoginSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -99,7 +129,7 @@ class LoginCubit extends Cubit<LoginStates> {
       }
     } catch (other) {
       //Unknown Error
-      print(other);
+      logger.d(other);
       emit(LoginErrorState(UnknownAuthException()));
     }
   }
